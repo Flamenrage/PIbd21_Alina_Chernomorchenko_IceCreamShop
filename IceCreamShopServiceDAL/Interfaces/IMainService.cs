@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace IceCreamShopServiceDAL.Interfaces
 {
-    interface IMainService
+    public interface IMainService
     {
-        List<BookingViewModel> GetBookings();
+        List<BookingViewModel> GetList();
         void CreateBooking(BookingBindingModel model);
         void TakeBookingInWork(BookingBindingModel model);
         void FinishBooking(BookingBindingModel model);

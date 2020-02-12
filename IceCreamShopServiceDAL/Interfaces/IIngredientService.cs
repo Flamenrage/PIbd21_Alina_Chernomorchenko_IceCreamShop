@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace IceCreamShopServiceDAL.Interfaces
 {
-    interface IIngredientService
+    public interface IIngredientService
     {
         List<IngredientViewModel> GetList();
         IngredientViewModel GetElement(int id);

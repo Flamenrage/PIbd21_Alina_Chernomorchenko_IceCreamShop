@@ -1,23 +1,35 @@
+﻿using IceCreamShopServiceDAL.Interfaces;
+using IceCreamShopServiceImplement.Implements;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unity;
+using Unity.Lifetime;
 
 namespace IceCreamShopView
 {
     static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(container.Resolve<FormMain>());
+        }
+        public static IUnityContainer BuildUnityContainer()
+        {
+            var currentContainer = new UnityContainer();
+            currentContainer.RegisterType<IIngredientService, IngredientServiceList>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IIceCreamService, IceCreamServiceList>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMainService, MainServiceList>(new
+            HierarchicalLifetimeManager());
+            return currentContainer;
         }
     }
 }
