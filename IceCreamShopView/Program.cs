@@ -1,5 +1,6 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceImplement.Implements;
+using IceCreamShopServiceDAL.ServicesDal;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -23,12 +24,14 @@ namespace IceCreamShopView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
+            currentContainer.RegisterType<IIceCreamService, IceCreamServiceList>(new
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IIngredientService, IngredientServiceList>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IIceCreamService, IceCreamServiceList>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainService, MainServiceList>(new
-            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IBookingService, BookingServiceList>(
+                new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<MainService>(
+                new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

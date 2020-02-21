@@ -60,7 +60,6 @@
             this.справочникиToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1147, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -77,14 +76,14 @@
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(186, 26);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.ингредиентыToolStripMenuItem_Click);
             // 
             // мороженоеToolStripMenuItem
             // 
             this.мороженоеToolStripMenuItem.Name = "мороженоеToolStripMenuItem";
-            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(186, 26);
             this.мороженоеToolStripMenuItem.Text = "Мороженое";
             this.мороженоеToolStripMenuItem.Click += new System.EventHandler(this.мороженоеToolStripMenuItem_Click);
             // 
@@ -103,7 +102,7 @@
             this.dateImplementDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.bookingViewModelBindingSource;
             this.dataGridView.Location = new System.Drawing.Point(12, 42);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.Size = new System.Drawing.Size(887, 415);
@@ -135,7 +134,7 @@
             // 
             this.iceCreamNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.iceCreamNameDataGridViewTextBoxColumn.DataPropertyName = "IceCreamName";
-            this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "IceCreamName";
+            this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "Мороженое";
             this.iceCreamNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.iceCreamNameDataGridViewTextBoxColumn.Name = "iceCreamNameDataGridViewTextBoxColumn";
             this.iceCreamNameDataGridViewTextBoxColumn.ReadOnly = true;
@@ -145,18 +144,17 @@
             // 
             this.countDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
+            this.countDataGridViewTextBoxColumn.HeaderText = "Количество";
             this.countDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
             this.countDataGridViewTextBoxColumn.ReadOnly = true;
             this.countDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.countDataGridViewTextBoxColumn.Visible = false;
             // 
             // sumDataGridViewTextBoxColumn
             // 
             this.sumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
-            this.sumDataGridViewTextBoxColumn.HeaderText = "Sum";
+            this.sumDataGridViewTextBoxColumn.HeaderText = "Сумма";
             this.sumDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
             this.sumDataGridViewTextBoxColumn.ReadOnly = true;
@@ -166,7 +164,7 @@
             // 
             this.statusDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Статус";
             this.statusDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
             this.statusDataGridViewTextBoxColumn.ReadOnly = true;
@@ -176,7 +174,7 @@
             // 
             this.dateCreateDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dateCreateDataGridViewTextBoxColumn.DataPropertyName = "DateCreate";
-            this.dateCreateDataGridViewTextBoxColumn.HeaderText = "DateCreate";
+            this.dateCreateDataGridViewTextBoxColumn.HeaderText = "Дата создания";
             this.dateCreateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.dateCreateDataGridViewTextBoxColumn.Name = "dateCreateDataGridViewTextBoxColumn";
             this.dateCreateDataGridViewTextBoxColumn.ReadOnly = true;
@@ -186,7 +184,7 @@
             // 
             this.dateImplementDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dateImplementDataGridViewTextBoxColumn.DataPropertyName = "DateImplement";
-            this.dateImplementDataGridViewTextBoxColumn.HeaderText = "DateImplement";
+            this.dateImplementDataGridViewTextBoxColumn.HeaderText = "Дата выполнения";
             this.dateImplementDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.dateImplementDataGridViewTextBoxColumn.Name = "dateImplementDataGridViewTextBoxColumn";
             this.dateImplementDataGridViewTextBoxColumn.ReadOnly = true;
@@ -199,7 +197,7 @@
             // buttonCreateBooking
             // 
             this.buttonCreateBooking.Location = new System.Drawing.Point(907, 42);
-            this.buttonCreateBooking.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCreateBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCreateBooking.Name = "buttonCreateBooking";
             this.buttonCreateBooking.Size = new System.Drawing.Size(224, 39);
             this.buttonCreateBooking.TabIndex = 2;
@@ -210,7 +208,7 @@
             // buttonTakeBookingInWork
             // 
             this.buttonTakeBookingInWork.Location = new System.Drawing.Point(907, 89);
-            this.buttonTakeBookingInWork.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonTakeBookingInWork.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTakeBookingInWork.Name = "buttonTakeBookingInWork";
             this.buttonTakeBookingInWork.Size = new System.Drawing.Size(224, 39);
             this.buttonTakeBookingInWork.TabIndex = 3;
@@ -221,7 +219,7 @@
             // buttonBookingReady
             // 
             this.buttonBookingReady.Location = new System.Drawing.Point(907, 135);
-            this.buttonBookingReady.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonBookingReady.Margin = new System.Windows.Forms.Padding(4);
             this.buttonBookingReady.Name = "buttonBookingReady";
             this.buttonBookingReady.Size = new System.Drawing.Size(224, 39);
             this.buttonBookingReady.TabIndex = 4;
@@ -232,7 +230,7 @@
             // buttonPayBooking
             // 
             this.buttonPayBooking.Location = new System.Drawing.Point(907, 182);
-            this.buttonPayBooking.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonPayBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPayBooking.Name = "buttonPayBooking";
             this.buttonPayBooking.Size = new System.Drawing.Size(224, 39);
             this.buttonPayBooking.TabIndex = 5;
@@ -243,7 +241,7 @@
             // buttonRef
             // 
             this.buttonRef.Location = new System.Drawing.Point(907, 229);
-            this.buttonRef.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRef.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(224, 39);
             this.buttonRef.TabIndex = 6;
@@ -264,7 +262,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "Лавка мороженого";
             this.menuStrip1.ResumeLayout(false);

@@ -5,7 +5,7 @@ using IceCreamShopServiceImplement.Models;
 
 namespace IceCreamShopServiceImplement
 {
-    class DataListSingleton
+    public class DataListSingleton
     {
         private static DataListSingleton instance;
 

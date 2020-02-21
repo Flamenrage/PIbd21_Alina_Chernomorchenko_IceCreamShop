@@ -4,9 +4,8 @@ using System.Text;
 
 namespace IceCreamShopServiceDAL.BindingModels
 {
-    public class IngredientBindingModel
+    public class ChangeStatusBindingModel
     {
-        public int? Id { get; set; }
-        public string IngredientName { get; set; }
+        public int BookingId { get; set; }
     }
 }

@@ -6,10 +6,8 @@ namespace IceCreamShopServiceDAL.Interfaces
 {
     public interface IIceCreamService
     {
-        List<IceCreamViewModel> GetList();
-        IceCreamViewModel GetElement(int id);
-        void AddElement(IceCreamBindingModel model);
-        void UpdElement(IceCreamBindingModel model);
-        void DelElement(int id);
+        List<IceCreamViewModel> Read(IceCreamBindingModel model);
+        void CreateOrUpdate(IceCreamBindingModel model);
+        void Delete(IceCreamBindingModel model);
     }
 }

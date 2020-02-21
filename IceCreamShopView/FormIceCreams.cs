@@ -1,5 +1,6 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
+using IceCreamShopServiceDAL.BindingModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IceCreamViewModel> list = service.GetList();
+                List<IceCreamViewModel> list = service.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -78,7 +79,7 @@ namespace IceCreamShopView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        service.Delete(new IceCreamBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

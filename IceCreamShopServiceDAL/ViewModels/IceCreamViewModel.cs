@@ -13,6 +13,6 @@ namespace IceCreamShopServiceDAL.ViewModels
         [DisplayName("Цена")]
         public decimal Price { get; set; }
 
-        public List<IceCreamIngredientViewModel> IceCreamIngredients { get; set; }
+        public Dictionary<int, (string, int)> IceCreamIngredients { get; set; }
     }
 }

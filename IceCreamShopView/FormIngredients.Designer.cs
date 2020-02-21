@@ -43,9 +43,10 @@
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(474, 146);
+            this.buttonRef.Location = new System.Drawing.Point(632, 180);
+            this.buttonRef.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonRef.Name = "buttonRef";
-            this.buttonRef.Size = new System.Drawing.Size(109, 35);
+            this.buttonRef.Size = new System.Drawing.Size(145, 43);
             this.buttonRef.TabIndex = 13;
             this.buttonRef.Text = "Обновить";
             this.buttonRef.UseVisualStyleBackColor = true;
@@ -53,9 +54,10 @@
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(474, 105);
+            this.buttonDel.Location = new System.Drawing.Point(632, 129);
+            this.buttonDel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(109, 35);
+            this.buttonDel.Size = new System.Drawing.Size(145, 43);
             this.buttonDel.TabIndex = 12;
             this.buttonDel.Text = "Удалить";
             this.buttonDel.UseVisualStyleBackColor = true;
@@ -63,9 +65,10 @@
             // 
             // buttonUpd
             // 
-            this.buttonUpd.Location = new System.Drawing.Point(474, 64);
+            this.buttonUpd.Location = new System.Drawing.Point(632, 79);
+            this.buttonUpd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonUpd.Name = "buttonUpd";
-            this.buttonUpd.Size = new System.Drawing.Size(109, 35);
+            this.buttonUpd.Size = new System.Drawing.Size(145, 43);
             this.buttonUpd.TabIndex = 11;
             this.buttonUpd.Text = "Изменить";
             this.buttonUpd.UseVisualStyleBackColor = true;
@@ -73,9 +76,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(474, 23);
+            this.buttonAdd.Location = new System.Drawing.Point(632, 28);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(109, 35);
+            this.buttonAdd.Size = new System.Drawing.Size(145, 43);
             this.buttonAdd.TabIndex = 10;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -89,9 +93,11 @@
             this.idDataGridViewTextBoxColumn,
             this.ingredientNameDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.ingredientViewModelBindingSource;
-            this.dataGridView.Location = new System.Drawing.Point(3, 12);
+            this.dataGridView.Location = new System.Drawing.Point(4, 15);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(461, 439);
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.Size = new System.Drawing.Size(615, 540);
             this.dataGridView.TabIndex = 9;
             // 
             // ingredientViewModelBindingSource
@@ -102,30 +108,34 @@
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
+            this.idDataGridViewTextBoxColumn.Width = 125;
             // 
             // ingredientNameDataGridViewTextBoxColumn
             // 
             this.ingredientNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
-            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
+            this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "Ингредиент:";
+            this.ingredientNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
             this.ingredientNameDataGridViewTextBoxColumn.ReadOnly = true;
             this.ingredientNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormIngredients
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 459);
+            this.ClientSize = new System.Drawing.Size(795, 565);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpd);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormIngredients";
             this.Text = "Ингредиенты";
             this.Load += new System.EventHandler(this.FormIngredients_Load);

@@ -16,84 +16,46 @@ namespace IceCreamShopServiceImplement.Implements
                 source = DataListSingleton.GetInstance();
             }
 
-            public List<IngredientViewModel> GetList()
+            public void CreateOrUpdate(IngredientBindingModel model)
             {
-                List<IngredientViewModel> result = new List<IngredientViewModel>();
-                for (int i = 0; i < source.Ingredients.Count; ++i)
+                Ingredient tempIngredient = model.Id.HasValue ? null : new Ingredient
                 {
-                    result.Add(new IngredientViewModel
+                    Id = 1
+                };
+                foreach (var ingredient in source.Ingredients)
+                {
+                    if (ingredient.IngredientName == model.IngredientName && ingredient.Id !=
+                   model.Id)
                     {
-                        Id = source.Ingredients[i].Id,
-                        IngredientName = source.Ingredients[i].IngredientName
-                    });
+                        throw new Exception("Уже есть компонент с таким названием");
+                    }
+                    if (!model.Id.HasValue && ingredient.Id >= tempIngredient.Id)
+                    {
+                        tempIngredient.Id = ingredient.Id + 1;
+                    }
+                    else if (model.Id.HasValue && ingredient.Id == model.Id)      
+                    {
+                        tempIngredient = ingredient;
+                    }
                 }
-                return result;
+                if (model.Id.HasValue)
+                {
+                    if (tempIngredient == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    CreateModel(model, tempIngredient);
+                }
+                else
+                {
+                    source.Ingredients.Add(CreateModel(model, tempIngredient));
+                }
             }
-
-            public IngredientViewModel GetElement(int id)
+            public void Delete(IngredientBindingModel model)
             {
                 for (int i = 0; i < source.Ingredients.Count; ++i)
                 {
-                    if (source.Ingredients[i].Id == id)
-                    {
-                        return new IngredientViewModel
-                        {
-                            Id = source.Ingredients[i].Id,
-                            IngredientName = source.Ingredients[i].IngredientName
-                        };
-                    }
-                }
-                throw new Exception("Элемент не найден");
-            }
-
-            public void AddElement(IngredientBindingModel model)
-            {
-                int maxId = 0;
-                for (int i = 0; i < source.Ingredients.Count; ++i)
-                {
-                    if (source.Ingredients[i].Id > maxId)
-                    {
-                        maxId = source.Ingredients[i].Id;
-                    }
-                    if (source.Ingredients[i].IngredientName == model.IngredientName)
-                    {
-                        throw new Exception("Уже есть ингредиент с таким именем");
-                    }
-                }
-                source.Ingredients.Add(new Ingredient
-                {
-                    Id = maxId + 1,
-                    IngredientName = model.IngredientName
-                });
-            }
-
-            public void UpdElement(IngredientBindingModel model)
-            {
-                int index = -1;
-                for (int i = 0; i < source.Ingredients.Count; ++i)
-                {
-                    if (source.Ingredients[i].Id == model.Id)
-                    {
-                        index = i;
-                    }
-                    if (source.Ingredients[i].IngredientName == model.IngredientName &&
-                    source.Ingredients[i].Id != model.Id)
-                    {
-                        throw new Exception("Уже есть ингредиент с таким именем");
-                    }
-                }
-                if (index == -1)
-                {
-                    throw new Exception("Элемент не найден");
-                }
-                source.Ingredients[index].IngredientName = model.IngredientName;
-            }
-
-            public void DelElement(int id)
-            {
-                for (int i = 0; i < source.Ingredients.Count; ++i)
-                {
-                    if (source.Ingredients[i].Id == id)
+                    if (source.Ingredients[i].Id == model.Id.Value)
                     {
                         source.Ingredients.RemoveAt(i);
                         return;
@@ -101,5 +63,36 @@ namespace IceCreamShopServiceImplement.Implements
                 }
                 throw new Exception("Элемент не найден");
             }
-        }
+            public List<IngredientViewModel> Read(IngredientBindingModel model)
+            {
+                List<IngredientViewModel> result = new List<IngredientViewModel>();
+                foreach (var ingredient in source.Ingredients)
+                {
+                    if (model != null)
+                    {
+                        if (ingredient.Id == model.Id)
+                        {
+                            result.Add(CreateViewModel(ingredient));
+                            break;
+                        }
+                        continue;
+                    }
+                    result.Add(CreateViewModel(ingredient));
+                }
+                return result;
+            }
+            private Ingredient CreateModel(IngredientBindingModel model, Ingredient ingredient)
+            {
+                ingredient.IngredientName = model.IngredientName;
+                return ingredient;
+            }
+            private IngredientViewModel CreateViewModel(Ingredient ingredient)
+            {
+                return new IngredientViewModel
+                {
+                     Id = ingredient.Id,
+                     IngredientName = ingredient.IngredientName
+                };
+            }
+         }
     }

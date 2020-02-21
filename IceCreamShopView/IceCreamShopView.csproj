@@ -102,6 +102,12 @@
     <EmbeddedResource Include="FormCreateBooking.resx">
       <DependentUpon>FormCreateBooking.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormIceCream.resx">
+      <DependentUpon>FormIceCream.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIceCreams.resx">
+      <DependentUpon>FormIceCreams.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormIngredient.resx">
       <DependentUpon>FormIngredient.cs</DependentUpon>
     </EmbeddedResource>

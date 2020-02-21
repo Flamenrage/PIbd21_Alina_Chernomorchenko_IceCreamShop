@@ -44,9 +44,10 @@
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(473, 133);
+            this.buttonRef.Location = new System.Drawing.Point(631, 164);
+            this.buttonRef.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonRef.Name = "buttonRef";
-            this.buttonRef.Size = new System.Drawing.Size(109, 35);
+            this.buttonRef.Size = new System.Drawing.Size(145, 43);
             this.buttonRef.TabIndex = 13;
             this.buttonRef.Text = "Обновить";
             this.buttonRef.UseVisualStyleBackColor = true;
@@ -54,9 +55,10 @@
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(473, 92);
+            this.buttonDel.Location = new System.Drawing.Point(631, 113);
+            this.buttonDel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(109, 35);
+            this.buttonDel.Size = new System.Drawing.Size(145, 43);
             this.buttonDel.TabIndex = 12;
             this.buttonDel.Text = "Удалить";
             this.buttonDel.UseVisualStyleBackColor = true;
@@ -64,9 +66,10 @@
             // 
             // buttonUpd
             // 
-            this.buttonUpd.Location = new System.Drawing.Point(473, 51);
+            this.buttonUpd.Location = new System.Drawing.Point(631, 63);
+            this.buttonUpd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonUpd.Name = "buttonUpd";
-            this.buttonUpd.Size = new System.Drawing.Size(109, 35);
+            this.buttonUpd.Size = new System.Drawing.Size(145, 43);
             this.buttonUpd.TabIndex = 11;
             this.buttonUpd.Text = "Изменить";
             this.buttonUpd.UseVisualStyleBackColor = true;
@@ -74,9 +77,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(473, 10);
+            this.buttonAdd.Location = new System.Drawing.Point(631, 12);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(109, 35);
+            this.buttonAdd.Size = new System.Drawing.Size(145, 43);
             this.buttonAdd.TabIndex = 10;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -91,9 +95,11 @@
             this.iceCreamNameDataGridViewTextBoxColumn,
             this.priceDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.iceCreamViewModelBindingSource;
-            this.dataGridView.Location = new System.Drawing.Point(2, 2);
+            this.dataGridView.Location = new System.Drawing.Point(3, 2);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(461, 439);
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.Size = new System.Drawing.Size(615, 540);
             this.dataGridView.TabIndex = 9;
             // 
             // iceCreamViewModelBindingSource
@@ -104,16 +110,19 @@
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
+            this.idDataGridViewTextBoxColumn.Width = 125;
             // 
             // iceCreamNameDataGridViewTextBoxColumn
             // 
             this.iceCreamNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.iceCreamNameDataGridViewTextBoxColumn.DataPropertyName = "IceCreamName";
-            this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "IceCreamName";
+            this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "Название ингредиента:";
+            this.iceCreamNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.iceCreamNameDataGridViewTextBoxColumn.Name = "iceCreamNameDataGridViewTextBoxColumn";
             this.iceCreamNameDataGridViewTextBoxColumn.ReadOnly = true;
             this.iceCreamNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -122,21 +131,23 @@
             // 
             this.priceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Цена";
+            this.priceDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             this.priceDataGridViewTextBoxColumn.ReadOnly = true;
             this.priceDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormIceCreams
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 444);
+            this.ClientSize = new System.Drawing.Size(791, 546);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpd);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormIceCreams";
             this.Text = "Мороженое";
             this.Load += new System.EventHandler(this.FormIceCreams_Load);

@@ -30,7 +30,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IngredientViewModel view = service.GetElement(id.Value);
+                    var view = service.Read(new IngredientBindingModel { Id = id.Value })?[0];
                     if (view != null)
                     {
                         textBoxName.Text = view.IngredientName;
@@ -54,25 +54,15 @@ namespace IceCreamShopView
             }
             try
             {
-                if (id.HasValue)
-                {
-                    service.UpdElement(new IngredientBindingModel
+                    service?.CreateOrUpdate(new IngredientBindingModel
                     {
-                        Id = id.Value,
+                        Id = id,
                         IngredientName = textBoxName.Text
                     });
-                }
-                else
-                {
-                    service.AddElement(new IngredientBindingModel
-                    {
-                        IngredientName = textBoxName.Text
-                    });
-                }
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK;
-                Close();
+                    MessageBox.Show("Сохранение прошло успешно", "Сообщение",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close(); 
             }
             catch (Exception ex)
             {

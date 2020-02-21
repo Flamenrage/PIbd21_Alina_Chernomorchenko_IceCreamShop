@@ -1,6 +1,7 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
+using IceCreamShopServiceDAL.ServicesDal;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -13,27 +14,27 @@ namespace IceCreamShopView
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private readonly IMainService service;
+        private readonly MainService service;
+        private readonly IBookingService bookingService;
 
-        public FormMain(IMainService service)
+        public FormMain(MainService service, IBookingService bookingService)
         {
             InitializeComponent();
             this.service = service;
+            this.bookingService = bookingService;
         }
 
         private void LoadData()
         {
             try
             {
-                var list = service.GetList();
+                var list = bookingService.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[3].Visible = false;
-                    dataGridView.Columns[5].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode =
+                    dataGridView.Columns[2].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -55,13 +56,6 @@ namespace IceCreamShopView
             form.ShowDialog();
         }
 
-        private void buttonCreateBooking_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormCreateBooking>();
-            form.ShowDialog();
-            LoadData();
-        }
-
         private void buttonTakeBookingInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -69,7 +63,7 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.TakeBookingInWork(new BookingBindingModel { Id = id });
+                    service.TakeBookingInWork(new ChangeStatusBindingModel { BookingId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -87,7 +81,7 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.FinishBooking(new BookingBindingModel { Id = id });
+                    service.FinishBooking(new ChangeStatusBindingModel { BookingId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -105,8 +99,7 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.PayBooking(new BookingBindingModel { Id = id });
-                    LoadData();
+                    service.PayBooking(new ChangeStatusBindingModel { BookingId = id });
                 }
                 catch (Exception ex)
                 {
@@ -118,6 +111,13 @@ namespace IceCreamShopView
 
         private void buttonRef_Click(object sender, EventArgs e)
         {
+            LoadData();
+        }
+
+        private void buttonCreateBooking_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormCreateBooking>();
+            form.ShowDialog();
             LoadData();
         }
     }

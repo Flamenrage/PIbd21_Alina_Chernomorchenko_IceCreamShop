@@ -19,7 +19,7 @@ namespace IceCreamShopView
 
         private int? id;
 
-        private List<IceCreamIngredientViewModel> IceCreamIngredients;
+        private Dictionary<int, (string, int)> iceCreamIngredients;
 
         public FormIceCream(IIceCreamService service)
         {
@@ -33,12 +33,13 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IceCreamViewModel view = service.GetElement(id.Value);
+                    IceCreamViewModel view = service.Read(new IceCreamBindingModel
+                    { Id = id.Value })?[0];
                     if (view != null)
                     {
                         textBoxName.Text = view.IceCreamName;
                         textBoxPrice.Text = view.Price.ToString();
-                        IceCreamIngredients = view.IceCreamIngredients;
+                        iceCreamIngredients = view.IceCreamIngredients;
                         LoadData();
                     }
                 }
@@ -50,29 +51,28 @@ namespace IceCreamShopView
             }
             else
             {
-                IceCreamIngredients = new List<IceCreamIngredientViewModel>();
+                iceCreamIngredients = new Dictionary<int, (string, int)>();
             }
         }
 
         private void LoadData()
         {
-            try
+             try
             {
-                if (IceCreamIngredients != null)
+                if (iceCreamIngredients != null)
                 {
-                    dataGridView.DataSource = null;
-                    dataGridView.DataSource = IceCreamIngredients;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Rows.Clear();
+                    foreach (var pc in iceCreamIngredients)
+                    {
+                        dataGridView.Rows.Add(new object[] { pc.Key, pc.Value.Item1,
+                        pc.Value.Item2 });
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
             }
         }
 
@@ -81,13 +81,13 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormIceCreamIngredient>();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ModelView != null)
+                if (iceCreamIngredients.ContainsKey(form.Id))
                 {
-                    if (id.HasValue)
-                    {
-                        form.ModelView.IceCreamId = id.Value;
-                    }
-                    IceCreamIngredients.Add(form.ModelView);
+                    iceCreamIngredients[form.Id] = (form.IngredientName, form.Count);
+                }
+                else
+                {
+                    iceCreamIngredients.Add(form.Id, (form.IngredientName, form.Count));
                 }
                 LoadData();
             }
@@ -98,12 +98,12 @@ namespace IceCreamShopView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormIceCreamIngredient>();
-                form.ModelView =
-                IceCreamIngredients[dataGridView.SelectedRows[0].Cells[0].RowIndex];
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = id;
+                form.Count = iceCreamIngredients[id].Item2;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    IceCreamIngredients[dataGridView.SelectedRows[0].Cells[0].RowIndex] =
-                    form.ModelView;
+                    iceCreamIngredients[form.Id] = (form.IngredientName, form.Count);
                     LoadData();
                 }
             }
@@ -118,7 +118,7 @@ namespace IceCreamShopView
                 {
                     try
                     {
-                        IceCreamIngredients.RemoveAt(dataGridView.SelectedRows[0].Cells[0].RowIndex);
+                        iceCreamIngredients.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
                     catch (Exception ex)
                     {
@@ -149,7 +149,7 @@ namespace IceCreamShopView
                 MessageBoxIcon.Error);
                 return;
             }
-            if (IceCreamIngredients == null || IceCreamIngredients.Count == 0)
+            if (iceCreamIngredients == null || iceCreamIngredients.Count == 0)
             {
                 MessageBox.Show("Заполните ингредиенты", "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -157,39 +157,15 @@ namespace IceCreamShopView
             }
             try
             {
-                List<IceCreamIngredientBindingModel> IceCreamIngredientBM = new
-                List<IceCreamIngredientBindingModel>();
-                for (int i = 0; i < IceCreamIngredients.Count; ++i)
+                service.CreateOrUpdate(new IceCreamBindingModel
                 {
-                    IceCreamIngredientBM.Add(new IceCreamIngredientBindingModel
-                    {
-                        Id = IceCreamIngredients[i].Id,
-                        IceCreamId = IceCreamIngredients[i].IceCreamId,
-                        IngredientId = IceCreamIngredients[i].IngredientId,
-                        Count = IceCreamIngredients[i].Count
-                    });
-                }
-                if (id.HasValue)
-                {
-                    service.UpdElement(new IceCreamBindingModel
-                    {
-                        Id = id.Value,
-                        IceCreamName = textBoxName.Text,
-                        Price = Convert.ToDecimal(textBoxPrice.Text),
-                        IceCreamIngredients = IceCreamIngredientBM
-                    });
-                }
-                else
-                {
-                    service.AddElement(new IceCreamBindingModel
-                    {
-                        IceCreamName = textBoxName.Text,
-                        Price = Convert.ToDecimal(textBoxPrice.Text),
-                        IceCreamIngredients = IceCreamIngredientBM
-                    });
-                }
+                    Id = id,
+                    IceCreamName = textBoxName.Text,
+                    Price = Convert.ToDecimal(textBoxPrice.Text),
+                    IceCreamIngredients = iceCreamIngredients
+                });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+               MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }

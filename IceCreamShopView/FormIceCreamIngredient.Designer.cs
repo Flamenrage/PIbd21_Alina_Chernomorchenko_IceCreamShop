@@ -112,7 +112,6 @@
             this.Controls.Add(this.labelIngredient);
             this.Name = "FormIceCreamIngredient";
             this.Text = "Ингредиент мороженого";
-            this.Load += new System.EventHandler(this.FormIceCreamIngredient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iceCreamIngredientViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
