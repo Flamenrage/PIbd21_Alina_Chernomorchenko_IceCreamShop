@@ -97,7 +97,6 @@
             // 
             // iceCreamIngredientViewModelBindingSource
             // 
-            this.iceCreamIngredientViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.IceCreamIngredientViewModel);
             // 
             // FormIceCreamIngredient
             // 
