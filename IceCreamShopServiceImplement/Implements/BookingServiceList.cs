@@ -14,24 +14,21 @@ namespace IceCreamShopServiceImplement.Implements
         {
             source = DataListSingleton.GetInstance();
         }
-        public void CreateOrUpdate( BookingBindingModel model)
+       public void CreateOrUpdate(BookingBindingModel model)
         {
-             Booking tempBooking = model.Id.HasValue ? null : new Booking { Id = 1 };
-            foreach (var booking in source.Bookings)
+            Booking tempBooking = model.Id.HasValue ? null : new Booking
             {
-                if (booking.DateCreate == model.DateCreate && booking.Count == model.Count &&
-                    booking.IceCreamId == model.IceCreamId && booking.Sum == model.Sum &&
-                    booking.Status == model.Status && booking.Id != model.Id)
+                Id = 1
+            };
+            foreach (var Booking in source.Bookings)
+            {
+                if (!model.Id.HasValue && Booking.Id >= tempBooking.Id)
                 {
-                    throw new Exception("Такой заказ уже существует");
+                    tempBooking.Id = Booking.Id + 1;
                 }
-                if (!model.Id.HasValue && booking.Id >= tempBooking.Id)
+                else if (model.Id.HasValue && Booking.Id == model.Id)
                 {
-                    tempBooking.Id = booking.Id + 1;
-                }
-                else if (model.Id.HasValue && booking.Id == model.Id)
-                {
-                    tempBooking = booking;
+                    tempBooking = Booking;
                 }
             }
             if (model.Id.HasValue)
