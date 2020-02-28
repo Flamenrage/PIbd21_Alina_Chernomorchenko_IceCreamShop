@@ -141,6 +141,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IceCreamShopFileImplement\IceCreamShopFileImplement.csproj">
+      <Project>{2ec41919-83b9-4c42-a91c-ab8bcf2481bc}</Project>
+      <Name>IceCreamShopFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IceCreamShopServiceDAL\IceCreamShopServiceDAL.csproj">
       <Project>{cd84cbcb-3a8b-4fdb-bcf9-946750045daa}</Project>
       <Name>IceCreamShopServiceDAL</Name>
