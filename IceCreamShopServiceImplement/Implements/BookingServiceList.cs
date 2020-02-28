@@ -14,7 +14,7 @@ namespace IceCreamShopServiceImplement.Implements
         {
             source = DataListSingleton.GetInstance();
         }
-        public void CreateOrUpdate(BookingBindingModel model)
+       public void CreateOrUpdate(BookingBindingModel model)
         {
             Booking tempBooking = model.Id.HasValue ? null : new Booking
             {
