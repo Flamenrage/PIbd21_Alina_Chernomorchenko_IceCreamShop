@@ -61,7 +61,7 @@ namespace IceCreamShopFileImplement.Implements
             .Select(rec => new BookingViewModel
             {
                 Id = rec.Id,
-                IceCreamName = GetIceCreamName(rec.IceCreamId),
+                IceCreamName = source.IceCreams.FirstOrDefault(x => x.Id == rec.IceCreamId)?.IceCreamName,
                 Count = rec.Count,
                 Sum = rec.Sum,
                 Status = rec.Status,
@@ -69,14 +69,6 @@ namespace IceCreamShopFileImplement.Implements
                 DateImplement = rec.DateImplement
             })
             .ToList();
-        }
-
-        private string GetIceCreamName(int id)
-        {
-            string name = "";
-            var IceCream = source.IceCreams.FirstOrDefault(x => x.Id == id);
-            name = IceCream != null ? IceCream.IceCreamName : "";
-            return name;
         }
     }
 }
