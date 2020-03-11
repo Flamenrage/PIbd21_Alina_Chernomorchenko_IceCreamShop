@@ -9,9 +9,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
    public class MainService
     {
         private readonly IBookingService BookingService;
-        public MainService(IBookingService BookingService)
+        private readonly IStorageLogic storageLogic;
+
+        public MainService(IBookingService BookingService, IStorageLogic storageLogic)
         {
             this.BookingService = BookingService;
+            this.storageLogic = storageLogic;
         }
         public void CreateBooking(CreateBookingBindingModel model)
         {
@@ -97,6 +100,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 DateImplement = Booking.DateImplement,
                 Status = BookingStatus.Оплачен
             });
+        }
+        public void FillStorage(StorageIngredientBindingModel model)
+        {
+            storageLogic.FillStorage(model);
         }
     }
 }
