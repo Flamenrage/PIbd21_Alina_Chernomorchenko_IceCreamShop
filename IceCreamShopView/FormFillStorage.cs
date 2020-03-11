@@ -66,7 +66,7 @@ namespace IceCreamShopView
             }
             if (comboBoxIngredient.SelectedValue == null)
             {
-                MessageBox.Show("Выберите цветок", "Ошибка", MessageBoxButtons.OK,
+                MessageBox.Show("Выберите ингредиент", "Ошибка", MessageBoxButtons.OK,
             MessageBoxIcon.Error);
                 return;
             }
