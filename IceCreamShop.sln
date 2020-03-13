@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopView", "IceCrea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopServiceImplement", "IceCreamShopServiceImplement\IceCreamShopServiceImplement.csproj", "{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopFileImplement", "IceCreamShopFileImplement\IceCreamShopFileImplement.csproj", "{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopFileImplement", "IceCreamShopFileImplement\IceCreamShopFileImplement.csproj", "{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopDatabaseImplement", "IceCreamShopDatabaseImplement\IceCreamShopDatabaseImplement.csproj", "{BB81C010-477F-4546-9E2B-53EBF2990146}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
