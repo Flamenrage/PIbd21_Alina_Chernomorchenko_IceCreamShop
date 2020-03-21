@@ -61,6 +61,7 @@ namespace IceCreamShopFileImplement.Implements
             .Select(rec => new BookingViewModel
             {
                 Id = rec.Id,
+                IceCreamId = rec.IceCreamId,
                 IceCreamName = source.IceCreams.FirstOrDefault(x => x.Id == rec.IceCreamId)?.IceCreamName,
                 Count = rec.Count,
                 Sum = rec.Sum,

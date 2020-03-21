@@ -7,7 +7,7 @@ using IceCreamShopServiceImplement.Models;
 
 namespace IceCreamShopServiceImplement.Implements
 {
-    public class StorageLogic: IStorageLogic
+    public class StorageLogic : IStorageLogic
     {
         private readonly DataListSingleton source;
         public StorageLogic()
@@ -193,6 +193,15 @@ namespace IceCreamShopServiceImplement.Implements
                     Count = model.Count
                 });
             }
+        }
+        public bool CheckIngredientsAvailability(int icecreamId, int icecreamsCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveFromStorage(int icecreamId, int icecreamsCount)
+        {
+            throw new NotImplementedException();
         }
     }
 }
