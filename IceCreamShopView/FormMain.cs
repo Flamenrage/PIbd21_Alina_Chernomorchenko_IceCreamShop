@@ -123,5 +123,10 @@ namespace IceCreamShopView
             form.ShowDialog();
             LoadData();
         }
+
+        private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
