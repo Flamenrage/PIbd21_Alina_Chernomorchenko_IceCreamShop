@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -117,6 +120,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="FormCreateBooking.resx">
       <DependentUpon>FormCreateBooking.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +163,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IceCreamShopFileImplement\IceCreamShopFileImplement.csproj">
+      <Project>{2ec41919-83b9-4c42-a91c-ab8bcf2481bc}</Project>
+      <Name>IceCreamShopFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IceCreamShopServiceDAL\IceCreamShopServiceDAL.csproj">
       <Project>{cd84cbcb-3a8b-4fdb-bcf9-946750045daa}</Project>
       <Name>IceCreamShopServiceDAL</Name>
@@ -167,6 +175,13 @@
       <Project>{b7771738-c7d2-4b15-a1b8-b888d2c4fbb9}</Project>
       <Name>IceCreamShopServiceImplement</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll" />
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll" />
+    <Content Include="SqlServerTypes\x86\msvcr120.dll" />
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

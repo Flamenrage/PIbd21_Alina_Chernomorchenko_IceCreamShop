@@ -23,7 +23,10 @@ namespace IceCreamShopView
             this.service = service;
             this.bookingService = bookingService;
         }
-
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
         private void LoadData()
         {
             try
