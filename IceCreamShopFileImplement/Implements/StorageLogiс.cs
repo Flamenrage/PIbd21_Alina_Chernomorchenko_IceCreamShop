@@ -128,20 +128,14 @@ namespace IceCreamShopFileImplement.Implements
 
         public bool CheckIngredientsAvailability(int icecreamId, int icecreamCount)
         {
-            bool result = true;
             var IceCreamIngredients = source.IceCreamIngredients.Where(x => x.IceCreamId == icecreamId);
             if (IceCreamIngredients.Count() == 0) return false;
             foreach (var elem in IceCreamIngredients)
             {
-                int count = 0;
-                var storageIngredients = source.StorageIngredients.FindAll(x => x.IngredientId == elem.IngredientId);
-                foreach (var rec in storageIngredients)
-                {
-                    count += rec.Count;
-                }
-                if (count < elem.Count * icecreamCount) result = false;
+                int count = source.StorageIngredients.FindAll(x => x.IngredientId == elem.IngredientId).Sum(rec => rec.Count);
+                if (count < elem.Count * icecreamCount) return false;
             }
-            return result;
+            return true;
         }
 
         public void RemoveFromStorage(int icecreamId, int icecreamCount)
