@@ -11,45 +11,40 @@ namespace IceCreamShopServiceDAL.ServicesDal
 {
     public class ReportLogic
     {
-        private readonly IIngredientService IngredientLogic;
-        private readonly IIceCreamService IceCreamLogic;
+        private readonly IIngredientService ingredientLogic;
+        private readonly IIceCreamService iceCreamLogic;
         private readonly IBookingService bookingLogic;
-        public ReportLogic(IIceCreamService IceCreamLogic, IIngredientService IngredientLogic,
-       IBookingService bookingLogic)
+        public ReportLogic(IIceCreamService iceCreamLogic, IIngredientService ingredientLogic,
+            IBookingService bookingLogic)
         {
-            this.IceCreamLogic = IceCreamLogic;
-            this.IngredientLogic = IngredientLogic;
+            this.iceCreamLogic = iceCreamLogic;
+            this.ingredientLogic = ingredientLogic;
             this.bookingLogic = bookingLogic;
         }
-
         public List<ReportIceCreamIngredientViewModel> GetIceCreamIngredient()
         {
-            var Ingredients = IngredientLogic.Read(null);
-            var IceCreams = IceCreamLogic.Read(null);
+            var ingredients = ingredientLogic.Read(null);
+            var icecreams= iceCreamLogic.Read(null);
             var list = new List<ReportIceCreamIngredientViewModel>();
-            foreach (var Ingredient in Ingredients)
+            foreach (var ingredient in ingredients)
             {
-                var record = new ReportIceCreamIngredientViewModel
+                foreach (var icecream in icecreams)
                 {
-                    IngredientName = Ingredient.IngredientName,
-                    IceCreams = new List<Tuple<string, int>>(),
-                    TotalCount = 0
-                };
-                foreach (var IceCream in IceCreams)
-                {
-                    if (IceCream.IceCreamIngredients.ContainsKey(Ingredient.Id))
+                    if (icecream.IceCreamIngredients.ContainsKey(ingredient.Id))
                     {
-                        record.IceCreams.Add(new Tuple<string, int>(IceCream.IceCreamName,
-                       IceCream.IceCreamIngredients[Ingredient.Id].Item2));
-                        record.TotalCount +=
-                       IceCream.IceCreamIngredients[Ingredient.Id].Item2;
+                        var record = new ReportIceCreamIngredientViewModel
+                        {
+                            IceCreamName = icecream.IceCreamName,
+                            IngredientName = ingredient.IngredientName,
+                            Count = icecream.IceCreamIngredients[ingredient.Id].Item2
+                        };
+                        list.Add(record);
                     }
                 }
-                list.Add(record);
             }
             return list;
         }
-        public List<ReportBookingsViewModel> GetBookings(ReportBindingModel model)
+        public List<ReportBookingsViewModel> GetOrders(ReportBindingModel model)
         {
             return bookingLogic.Read(new BookingBindingModel
             {
@@ -64,35 +59,37 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 Sum = x.Sum,
                 Status = x.Status
             })
-           .ToList();
+            .ToList();
         }
-        public void SaveIngredientsToWordFile(ReportBindingModel model)
+        public void SaveIceCreamsToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список ингредиентов",
-                Ingredients = IngredientLogic.Read(null)
+                Title = "Список мороженого",
+                IceCreams = iceCreamLogic.Read(null)
             });
         }
-        public void SaveIceCreamIngredientToExcelFile(ReportBindingModel model)
+        public void SaveOrdersToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
                 FileName = model.FileName,
-                Title = "Список ингредиентов",
-                IceCreamIngredients = GetIceCreamIngredient()
+                Title = "Список заказов",
+                Bookings = GetOrders(model)
             });
         }
-        public void SaveBookingsToPdfFile(ReportBindingModel model)
+
+        [Obsolete]
+        public void SaveIceCreamIngredientsToPdfFile(ReportBindingModel model)
         {
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
-                Title = "Список заказов",
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
-                Bookings = GetBookings(model)
+                Title = "Список ингредиентов мороженого",
+                IceCreamIngredients = GetIceCreamIngredient()
             });
         }
     }

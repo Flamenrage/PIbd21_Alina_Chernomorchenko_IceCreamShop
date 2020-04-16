@@ -16,12 +16,14 @@ namespace IceCreamShopView
 
         private readonly MainService service;
         private readonly IBookingService bookingService;
+        private readonly ReportLogic reportLogic;
 
-        public FormMain(MainService service, IBookingService bookingService)
+        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic)
         {
             InitializeComponent();
             this.service = service;
             this.bookingService = bookingService;
+            this.reportLogic = reportLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -126,7 +128,28 @@ namespace IceCreamShopView
 
         private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveIceCreamsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+        }
 
+        private void ингредиентыПоМороженомуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

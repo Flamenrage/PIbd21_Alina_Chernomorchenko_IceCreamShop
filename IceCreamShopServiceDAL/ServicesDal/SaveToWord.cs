@@ -11,7 +11,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
         public static void CreateDoc(WordInfo info)
         {
             using (WordprocessingDocument wordDocument =
-           WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
+            WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
             {
                 MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
                 mainPart.Document = new Document();
@@ -26,11 +26,11 @@ namespace IceCreamShopServiceDAL.ServicesDal
                         JustificationValues = JustificationValues.Center
                     }
                 }));
-                foreach (var ingredient in info.Ingredients)
+                foreach (var icecream in info.IceCreams)
                 {
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
-                        Texts = new List<string> { ingredient.IngredientName },
+                        Texts = new List<string> { icecream.IceCreamName, "  —  Цена: " + icecream.Price.ToString() },
                         TextProperties = new WordParagraphProperties
                         {
                             Size = "24",
@@ -42,7 +42,6 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 wordDocument.MainDocumentPart.Document.Save();
             }
         }
-
         private static SectionProperties CreateSectionProperties()
         {
             SectionProperties properties = new SectionProperties();
@@ -53,14 +52,13 @@ namespace IceCreamShopServiceDAL.ServicesDal
             properties.AppendChild(pageSize);
             return properties;
         }
-
         private static Paragraph CreateParagraph(WordParagraph paragraph)
         {
             if (paragraph != null)
             {
                 Paragraph docParagraph = new Paragraph();
-
                 docParagraph.AppendChild(CreateParagraphProperties(paragraph.TextProperties));
+                int i = 0;
                 foreach (var run in paragraph.Texts)
                 {
                     Run docRun = new Run();
@@ -69,7 +67,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                     {
                         Val = paragraph.TextProperties.Size
                     });
-                    if (paragraph.TextProperties.Bold)
+                    if (i % 2 == 0)
                     {
                         properties.AppendChild(new Bold());
                     }
@@ -80,14 +78,14 @@ namespace IceCreamShopServiceDAL.ServicesDal
                         Space = SpaceProcessingModeValues.Preserve
                     });
                     docParagraph.AppendChild(docRun);
+                    i++;
                 }
                 return docParagraph;
             }
             return null;
         }
-
-        private static ParagraphProperties
-       CreateParagraphProperties(WordParagraphProperties paragraphProperties)
+        private static ParagraphProperties CreateParagraphProperties(
+            WordParagraphProperties paragraphProperties)
         {
             if (paragraphProperties != null)
             {
@@ -102,12 +100,13 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 });
                 properties.AppendChild(new Indentation());
                 ParagraphMarkRunProperties paragraphMarkRunProperties = new
-               ParagraphMarkRunProperties();
+                ParagraphMarkRunProperties();
                 if (!string.IsNullOrEmpty(paragraphProperties.Size))
                 {
                     paragraphMarkRunProperties.AppendChild(new FontSize
                     {
-                        Val = paragraphProperties.Size
+                        Val =
+                    paragraphProperties.Size
                     });
                 }
                 if (paragraphProperties.Bold)

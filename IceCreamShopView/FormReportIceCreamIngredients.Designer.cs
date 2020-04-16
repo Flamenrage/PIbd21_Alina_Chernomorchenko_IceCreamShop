@@ -1,4 +1,6 @@
-﻿namespace IceCreamShopView
+﻿using System;
+
+namespace IceCreamShopView
 {
     partial class FormReportIceCreamIngredients
     {
@@ -28,83 +30,98 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Ingredient = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IceCream = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonSaveToExcel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.ReportBookingsViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ReportAssemblyDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.buttonMake = new System.Windows.Forms.Button();
+            this.buttonToPdf = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportBookingsViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportAssemblyDetailViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView
+            // ReportBookingsViewModelBindingSource
             // 
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Ingredient,
-            this.IceCream,
-            this.Count});
-            this.dataGridView.GridColor = System.Drawing.SystemColors.ButtonShadow;
-            this.dataGridView.Location = new System.Drawing.Point(11, 64);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 28;
-            this.dataGridView.Size = new System.Drawing.Size(698, 502);
-            this.dataGridView.TabIndex = 0;
+            this.ReportBookingsViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.ReportBookingsViewModel);
             // 
-            // Ingredient
+            // ReportAssemblyDetailViewModelBindingSource
             // 
-            this.Ingredient.HeaderText = "Ингредиент";
-            this.Ingredient.MinimumWidth = 6;
-            this.Ingredient.Name = "Ingredient";
+            this.ReportAssemblyDetailViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.ReportIceCreamIngredientViewModel);
             // 
-            // IceCream
+            // reportViewer
             // 
-            this.IceCream.HeaderText = "Мороженое";
-            this.IceCream.MinimumWidth = 6;
-            this.IceCream.Name = "IceCream";
+            reportDataSource1.Name = "DataSetBookings";
+            reportDataSource1.Value = this.ReportBookingsViewModelBindingSource;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "IceCreamShopView.Report.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(16, 33);
+            this.reportViewer.Margin = new System.Windows.Forms.Padding(4);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(1253, 515);
+            this.reportViewer.TabIndex = 0;
             // 
-            // Count
+            // menuStrip
             // 
-            this.Count.HeaderText = "Количество";
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1285, 28);
+            this.menuStrip.TabIndex = 1;
+            this.menuStrip.Text = "menuStrip1";
             // 
-            // buttonSaveToExcel
+            // buttonMake
             // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(11, 18);
-            this.buttonSaveToExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(164, 33);
-            this.buttonSaveToExcel.TabIndex = 1;
-            this.buttonSaveToExcel.Text = "Сохранить в Excel";
-            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
-            this.buttonSaveToExcel.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
+            this.buttonMake.Location = new System.Drawing.Point(760, 1);
+            this.buttonMake.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMake.Name = "buttonMake";
+            this.buttonMake.Size = new System.Drawing.Size(219, 25);
+            this.buttonMake.TabIndex = 2;
+            this.buttonMake.Text = "Сформировать";
+            this.buttonMake.UseVisualStyleBackColor = true;
+            this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
+            // 
+            // buttonToPdf
+            // 
+            this.buttonToPdf.Location = new System.Drawing.Point(1000, 1);
+            this.buttonToPdf.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonToPdf.Name = "buttonToPdf";
+            this.buttonToPdf.Size = new System.Drawing.Size(221, 25);
+            this.buttonToPdf.TabIndex = 3;
+            this.buttonToPdf.Text = "В PDF";
+            this.buttonToPdf.UseVisualStyleBackColor = true;
+            this.buttonToPdf.Click += new System.EventHandler(this.buttonToPdf_Click);
             // 
             // FormReportIceCreamIngredients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 568);
-            this.Controls.Add(this.buttonSaveToExcel);
-            this.Controls.Add(this.dataGridView);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ClientSize = new System.Drawing.Size(1285, 559);
+            this.Controls.Add(this.buttonToPdf);
+            this.Controls.Add(this.buttonMake);
+            this.Controls.Add(this.reportViewer);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormReportIceCreamIngredients";
-            this.Text = "Ингредиенты по мороженому";
-            this.Load += new System.EventHandler(this.FormReportIceCreamIngredients_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Ингредиенты мороженого";
+            ((System.ComponentModel.ISupportInitialize)(this.ReportBookingsViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportAssemblyDetailViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ingredient;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IceCream;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
-        private System.Windows.Forms.Button buttonSaveToExcel;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.Button buttonMake;
+        private System.Windows.Forms.Button buttonToPdf;
+        private System.Windows.Forms.BindingSource ReportAssemblyDetailViewModelBindingSource;
+        private System.Windows.Forms.BindingSource ReportBookingsViewModelBindingSource;
     }
 }
