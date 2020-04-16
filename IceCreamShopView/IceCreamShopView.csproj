@@ -286,7 +286,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Report.rdlc" />
+    <EmbeddedResource Include="ReportCream.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.BookingViewModel.datasource" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.IceCreamViewModel.datasource" />
@@ -339,6 +339,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

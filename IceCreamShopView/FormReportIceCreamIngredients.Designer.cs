@@ -32,15 +32,21 @@ namespace IceCreamShopView
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.ReportIceCreamIngredientViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ReportBookingsViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ReportAssemblyDetailViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.buttonMake = new System.Windows.Forms.Button();
             this.buttonToPdf = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportIceCreamIngredientViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReportBookingsViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReportAssemblyDetailViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // ReportIceCreamIngredientViewModelBindingSource
+            // 
+            this.ReportIceCreamIngredientViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.ReportIceCreamIngredientViewModel);
             // 
             // ReportBookingsViewModelBindingSource
             // 
@@ -52,10 +58,7 @@ namespace IceCreamShopView
             // 
             // reportViewer
             // 
-            reportDataSource1.Name = "DataSetBookings";
-            reportDataSource1.Value = this.ReportBookingsViewModelBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer.LocalReport.ReportEmbeddedResource = "IceCreamShopView.Report.rdlc";
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "IceCreamShopView.ReportCream.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(16, 33);
             this.reportViewer.Margin = new System.Windows.Forms.Padding(4);
             this.reportViewer.Name = "reportViewer";
@@ -68,7 +71,7 @@ namespace IceCreamShopView
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1285, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1285, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -108,6 +111,7 @@ namespace IceCreamShopView
             this.Name = "FormReportIceCreamIngredients";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ингредиенты мороженого";
+            ((System.ComponentModel.ISupportInitialize)(this.ReportIceCreamIngredientViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReportBookingsViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReportAssemblyDetailViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -123,5 +127,6 @@ namespace IceCreamShopView
         private System.Windows.Forms.Button buttonToPdf;
         private System.Windows.Forms.BindingSource ReportAssemblyDetailViewModelBindingSource;
         private System.Windows.Forms.BindingSource ReportBookingsViewModelBindingSource;
+        private System.Windows.Forms.BindingSource ReportIceCreamIngredientViewModelBindingSource;
     }
 }

@@ -24,7 +24,7 @@ namespace IceCreamShopView
             try
             {
                 var dataSource = logic.GetIceCreamIngredient();
-                ReportDataSource source = new ReportDataSource("DataSetAD", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetCream", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
