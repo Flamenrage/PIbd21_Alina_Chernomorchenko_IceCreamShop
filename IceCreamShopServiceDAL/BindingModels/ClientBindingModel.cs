@@ -6,18 +6,15 @@ using System.Runtime.Serialization;
 
 namespace IceCreamShopServiceDAL.BindingModels
 {
-    [DataContract]
-    public class CreateBookingBindingModel
+    public class ClientBindingModel
     {
         [DataMember]
-        public int ClientId { set; get; }
+        public int? Id { set; get; }
         [DataMember]
         public string ClientFIO { set; get; }
         [DataMember]
-        public int IceCreamId { get; set; }
+        public string Login { set; get; }
         [DataMember]
-        public int Count { get; set; }
-        [DataMember]
-        public decimal Sum { get; set; }
+        public string Password { set; get; }
     }
 }

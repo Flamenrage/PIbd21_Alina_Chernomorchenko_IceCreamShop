@@ -34,6 +34,8 @@ namespace IceCreamShopDatabaseImplement.Implements
                 }
                 element.IceCreamId = model.IceCreamId == 0 ? element.IceCreamId : model.IceCreamId;
                 element.Count = model.Count;
+                element.ClientFIO = model.ClientFIO;
+                element.ClientId = model.ClientId;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
                 element.DateCreate = model.DateCreate;
@@ -45,8 +47,7 @@ namespace IceCreamShopDatabaseImplement.Implements
         {
             using (var context = new IceCreamShopDatabase())
             {
-                Booking element = context.Bookings.FirstOrDefault(rec => rec.Id ==
-model.Id);
+                Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
                     context.Bookings.Remove(element);
@@ -65,7 +66,7 @@ model.Id);
                 return context.Bookings
             .Where(
                     rec => model == null
-                    || (rec.Id == model.Id && model.Id.HasValue)
+                    || (rec.Id == model.Id && model.Id.HasValue) || (model.ClientId == rec.ClientId)
                     || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
                 )
             .Select(rec => new BookingViewModel
@@ -74,6 +75,8 @@ model.Id);
                 IceCreamId = rec.IceCreamId,
                 IceCreamName = rec.IceCream.IceCreamName,
                 Count = rec.Count,
+                ClientFIO = rec.ClientFIO,
+                ClientId = rec.ClientId,
                 Sum = rec.Sum,
                 Status = rec.Status,
                 DateCreate = rec.DateCreate,
