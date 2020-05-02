@@ -21,35 +21,28 @@ namespace IceCreamShopRestApi.Controllers
         private readonly IBookingService _order;
         private readonly IIceCreamService _icecream;
         private readonly MainService _main;
-
-        public MainController(IBookingService order, IIceCreamService product, MainService main)
+        public MainController(IBookingService order, IIceCreamService assembly, MainService main)
         {
             _order = order;
-            _icecream = product;
+            _icecream = assembly;
             _main = main;
         }
-
         [HttpGet]
-        public List<IceCream> GetIceCreams() => _icecream.Read(null)?.Select(rec => Convert(rec)).ToList();
-
+        public List<IceCream> GetIceCreams() => _icecream.Read(null)?.Select(rec =>
+            Convert(rec)).ToList();
         [HttpGet]
-        public IceCream GetIceCream(int IceCreamId) => Convert(_icecream.Read(new IceCreamBindingModel
-        {
-            Id = IceCreamId
-        })?[0]);
-
+        public IceCream GetIceCream(int icecreamId) => Convert(_icecream.Read(
+            new IceCreamBindingModel { Id = icecreamId })?[0]);
         [HttpGet]
-        public List<BookingViewModel> GetOrders(int clientId) => _order.Read(new BookingBindingModel
-        {
-            ClientId = clientId
-        });
-
+        public List<BookingViewModel> GetOrders(int clientId) => _order.Read(
+            new BookingBindingModel { ClientId = clientId });
         [HttpPost]
-        public void CreateOrder(CreateBookingBindingModel model) => _main.CreateBooking(model);
-
+        public void CreateOrder(CreateBookingBindingModel model) =>
+            _main.CreateBooking(model);
         private IceCream Convert(IceCreamViewModel model)
         {
-            if (model == null) return null;
+            if (model == null)
+                return null;
             return new IceCream
             {
                 Id = model.Id,

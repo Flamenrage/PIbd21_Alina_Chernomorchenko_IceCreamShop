@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IceCreamShopServiceDAL.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ namespace IceCreamShopClientView
         {
             try
             {
-                //dataGridViewClientOrders.DataSource = //прописать запрос;
+                dataGridViewClientOrders.DataSource = ApiClient.GetRequest<List<BookingViewModel>>($"api/main/getorders?clientId={Program.Client.Id}");
                 dataGridViewClientOrders.Columns[0].Visible = false;
                 dataGridViewClientOrders.Columns[1].Visible = false;
                 dataGridViewClientOrders.Columns[2].Visible = false;
@@ -36,17 +37,17 @@ namespace IceCreamShopClientView
 
         private void UpdateDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           /* var form = new FormUpdateData();
-            form.ShowDialog();*/
+            var form = new FormEditProfile();
+            form.ShowDialog();
         }
 
         private void CreateOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         /*   var form = new FormCreateOrder();
+            var form = new FormCreateOrder();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadList();
-            }*/
+            }
         }
 
         private void RefreshOrderListToolStripMenuItem_Click(object sender, EventArgs e)

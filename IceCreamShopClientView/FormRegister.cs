@@ -18,17 +18,17 @@ namespace IceCreamShopClientView
 
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox1.Text) &&
-           !string.IsNullOrEmpty(textBox2.Text) &&
-           !string.IsNullOrEmpty(textBox3.Text))
+            if (!string.IsNullOrEmpty(textBoxFIO.Text) &&
+           !string.IsNullOrEmpty(textBoxLogin.Text) &&
+           !string.IsNullOrEmpty(textBoxPassword.Text))
             {
                 try
                 {
                     ApiClient.PostRequest("api/client/register", new ClientBindingModel
                     {
-                        ClientFIO = textBox1.Text,
-                        Login = textBox2.Text,
-                        Password = textBox3.Text
+                        ClientFIO = textBoxFIO.Text,
+                        Login = textBoxLogin.Text,
+                        Password = textBoxPassword.Text
                     });
                     MessageBox.Show("Регистрация прошла успешно", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -38,6 +38,10 @@ namespace IceCreamShopClientView
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                    MessageBox.Show(ex.InnerException.Message, "Ошибка", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
+                    MessageBox.Show(ex.InnerException.InnerException.Message, "Ошибка", MessageBoxButtons.OK,
+                  MessageBoxIcon.Error);
                 }
             }
             else
@@ -47,5 +51,10 @@ namespace IceCreamShopClientView
             }
         }
 
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 }
