@@ -12,6 +12,7 @@ namespace IceCreamShopServiceDAL.ViewModels
         [DataMember]
         public int Id { set; get; }
         [DataMember]
+        [DisplayName("ФИО")]
         public string ClientFIO { set; get; }
         [DataMember]
         public string Login { set; get; }

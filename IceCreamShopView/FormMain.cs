@@ -42,8 +42,6 @@ namespace IceCreamShopView
                     dataGridView.Columns[2].Visible = true;
                     dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[8].Visible = false;
-                    // dataGridView.Columns[5].FillWeight = 1f;
-                    // dataGridView.Columns[3].FillWeight = 1f;
                 }
             }
             catch (Exception ex)

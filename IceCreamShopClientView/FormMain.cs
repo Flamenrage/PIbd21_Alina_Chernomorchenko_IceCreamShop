@@ -24,9 +24,7 @@ namespace IceCreamShopClientView
                 dataGridViewClientOrders.DataSource = ApiClient.GetRequest<List<BookingViewModel>>($"api/main/getorders?clientId={Program.Client.Id}");
                 dataGridViewClientOrders.Columns[0].Visible = false;
                 dataGridViewClientOrders.Columns[1].Visible = false;
-                dataGridViewClientOrders.Columns[2].Visible = false;
-                dataGridViewClientOrders.Columns[3].Visible = false;
-                dataGridViewClientOrders.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridViewClientOrders.Columns[8].Visible = false;
             }
             catch (Exception ex)
             {
