@@ -34,6 +34,8 @@ namespace IceCreamShopView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainService>(
                 new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new
+            HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
