@@ -45,7 +45,8 @@ namespace IceCreamShopDatabaseImplement.Implements
             {
                 using (var context = new IceCreamShopDatabase())
                 {
-                    Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+                    Booking element = context.Bookings.FirstOrDefault(rec => rec.Id ==
+                    model.Id);
                     if (element != null)
                     {
                         context.Bookings.Remove(element);
@@ -64,16 +65,17 @@ namespace IceCreamShopDatabaseImplement.Implements
                     return context.Bookings
                 .Include(rec => rec.IceCream)
                 .Where(rec => model == null || rec.Id == model.Id)
-                            .Select(rec => new BookingViewModel
-                            {
-                                Id = rec.Id,
-                                IceCreamName = rec.IceCream.IceCreamName,
-                                Count = rec.Count,
-                                Sum = rec.Sum,
-                                Status = rec.Status,
-                                DateCreate = rec.DateCreate,
-                                DateImplement = rec.DateImplement
-                            })
+                    .Select(rec => new BookingViewModel
+                    {
+                        Id = rec.Id,
+                        IceCreamName = rec.IceCream.IceCreamName,
+                        IceCreamId = rec.IceCream.Id,
+                        Count = rec.Count,
+                        Sum = rec.Sum,
+                        Status = rec.Status,
+                        DateCreate = rec.DateCreate,
+                        DateImplement = rec.DateImplement
+                    })
                 .ToList();
                 }
             }

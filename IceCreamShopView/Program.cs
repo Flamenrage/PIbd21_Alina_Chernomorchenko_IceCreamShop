@@ -30,7 +30,7 @@ namespace IceCreamShopView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IBookingService, BookingService>(
                 new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IStorageLogic, StorageLogiс>(new
+            currentContainer.RegisterType<IStorageLogic, StorageLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainService>(
                 new HierarchicalLifetimeManager());
