@@ -136,7 +136,7 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormFillStorage>();
             form.ShowDialog();
         }
-        private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокМороженогоToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
@@ -162,6 +162,30 @@ namespace IceCreamShopView
         {
             var form = Container.Resolve<FormReportOrders>();
             form.ShowDialog();
+        }
+      
+        private void списокИнгредиентовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIngredient>();
+            form.ShowDialog();
+        }
+        private void списокИнгредиентовПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportStorageIngredient>();
+            form.ShowDialog();
+        }
+
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveStoragesToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace IceCreamShopServiceDAL.ViewModels
 {
-    public class ReportIceCreamIngredientViewModel
+    public class ReportStorageIngredientViewModel
     {
-        public string IceCreamName { get; set; }
-        public int Count { get; set; }
+        public string StorageName { get; set; }
         public string IngredientName { get; set; }
+        public int Count { get; set; }
     }
 }

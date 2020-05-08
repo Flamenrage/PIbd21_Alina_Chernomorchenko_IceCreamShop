@@ -24,43 +24,32 @@ namespace IceCreamShopView
             this.logic = logic;
         }
 
-        private void buttonMake_Click(object sender, EventArgs e)
+        private void ButtonMake_Click(object sender, EventArgs e)
         {
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
-                MessageBox.Show("Дата начала должна быть меньше даты окончания",
+                MessageBox.Show("Дата начала должна быть меньше даты окончания", 
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                var dict = logic.GetOrders(new ReportBindingModel
-                {
-                    DateFrom = dateTimePickerFrom.Value.Date,
-                    DateTo = dateTimePickerTo.Value.Date
-                });
-                List<DateTime> dates = new List<DateTime>();
-                foreach (var order in dict)
-                {
-                    if (!dates.Contains(order.DateCreate.Date))
-                    {
-                        dates.Add(order.DateCreate.Date);
-                    }
-                }
+                var dict = logic.GetOrders(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, 
+                    DateTo = dateTimePickerTo.Value.Date });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var date in dates)
+                    foreach (var date in dict)
                     {
-                        decimal generalSum = 0;
-                        dataGridView.Rows.Add(new object[] { date.Date.ToShortDateString() });
+                        decimal GenSum = 0;
+                        dataGridView.Rows.Add(new object[] { date.Key.ToShortDateString() });
 
-                        foreach (var order in dict.Where(rec => rec.DateCreate.Date == date.Date))
+                        foreach (var order in date)
                         {
                             dataGridView.Rows.Add(new object[] { "", order.IceCreamName, order.Sum });
-                            generalSum += order.Sum;
+                            GenSum += order.Sum;
                         }
-                        dataGridView.Rows.Add(new object[] { "Итого: ", "", generalSum });
+                        dataGridView.Rows.Add(new object[] { "General Sum:", "", GenSum });
                     }
                 }
             }
@@ -70,7 +59,7 @@ namespace IceCreamShopView
             }
         }
 
-        private void buttonSaveToExcel_Click(object sender, EventArgs e)
+        private void ButtonSaveToExcel_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
             {
@@ -78,25 +67,24 @@ namespace IceCreamShopView
                 {
                     if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
                     {
-                        MessageBox.Show("Дата начала должна быть меньше даты окончания",
-                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     try
                     {
-                        logic.SaveOrdersToExcelFile(new ReportBindingModel
+                        logic.SaveIceCreamIngredientToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value.Date,
                             DateTo = dateTimePickerTo.Value.Date,
                         });
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                       MessageBoxIcon.Error);
                     }
                 }
             }

@@ -247,6 +247,18 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportIngredient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportIngredient.Designer.cs">
+      <DependentUpon>FormReportIngredient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportStorageIngredient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportStorageIngredient.Designer.cs">
+      <DependentUpon>FormReportStorageIngredient.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStorage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,8 +307,14 @@
     <EmbeddedResource Include="FormReportIceCreamIngredients.resx">
       <DependentUpon>FormReportIceCreamIngredients.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportIngredient.resx">
+      <DependentUpon>FormReportIngredient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportStorageIngredient.resx">
+      <DependentUpon>FormReportStorageIngredient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -308,12 +326,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ReportCream.rdlc" />
+    <EmbeddedResource Include="ReportStorageIngredient.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.BookingViewModel.datasource" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.IceCreamViewModel.datasource" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.IngredientViewModel.datasource" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.ReportBookingsViewModel.datasource" />
     <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.ReportIceCreamIngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.ReportIngredientsViewModel.datasource" />
+    <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.ReportStorageIngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.StorageIngredientViewModel.datasource" />
+    <None Include="Properties\DataSources\IceCreamShopServiceDAL.ViewModels.StorageViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
