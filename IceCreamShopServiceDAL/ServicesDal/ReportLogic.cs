@@ -11,55 +11,45 @@ namespace IceCreamShopServiceDAL.ServicesDal
 {
     public class ReportLogic
     {
-        private readonly IIngredientService ingredientLogic;
         private readonly IIceCreamService iceCreamLogic;
         private readonly IBookingService bookingLogic;
         public ReportLogic(IIceCreamService iceCreamLogic, IIngredientService ingredientLogic,
             IBookingService bookingLogic)
         {
             this.iceCreamLogic = iceCreamLogic;
-            this.ingredientLogic = ingredientLogic;
             this.bookingLogic = bookingLogic;
         }
         public List<ReportIceCreamIngredientViewModel> GetIceCreamIngredient()
         {
-            var ingredients = ingredientLogic.Read(null);
-            var icecreams= iceCreamLogic.Read(null);
+            var icecreams = iceCreamLogic.Read(null);
             var list = new List<ReportIceCreamIngredientViewModel>();
-            foreach (var ingredient in ingredients)
+            foreach (var icecream in icecreams)
             {
-                foreach (var icecream in icecreams)
+                foreach (var ic in icecream.IceCreamIngredients)
                 {
-                    if (icecream.IceCreamIngredients.ContainsKey(ingredient.Id))
+                    var record = new ReportIceCreamIngredientViewModel
                     {
-                        var record = new ReportIceCreamIngredientViewModel
-                        {
-                            IceCreamName = icecream.IceCreamName,
-                            IngredientName = ingredient.IngredientName,
-                            Count = icecream.IceCreamIngredients[ingredient.Id].Item2
-                        };
-                        list.Add(record);
-                    }
+                        IceCreamName = icecream.IceCreamName,
+                        IngredientName = ic.Value.Item1,
+                        Count = ic.Value.Item2
+                    };
+                    list.Add(record);
                 }
             }
             return list;
         }
-        public List<ReportBookingsViewModel> GetOrders(ReportBindingModel model)
+        public List<IGrouping<DateTime, BookingViewModel>> GetOrders(ReportBindingModel model)
         {
-            return bookingLogic.Read(new BookingBindingModel
-            {
-                DateFrom = model.DateFrom,
-                DateTo = model.DateTo
-            })
-            .Select(x => new ReportBookingsViewModel
-            {
-                DateCreate = x.DateCreate,
-                IceCreamName = x.IceCreamName,
-                Count = x.Count,
-                Sum = x.Sum,
-                Status = x.Status
-            })
+            var list = bookingLogic
+           .Read(new BookingBindingModel
+           {
+               DateFrom = model.DateFrom,
+               DateTo = model.DateTo
+           })
+            .GroupBy(rec => rec.DateCreate.Date)
+            .OrderBy(recG => recG.Key)
             .ToList();
+            return list;
         }
         public void SaveIceCreamsToWordFile(ReportBindingModel model)
         {
@@ -74,8 +64,6 @@ namespace IceCreamShopServiceDAL.ServicesDal
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
                 FileName = model.FileName,
                 Title = "Список заказов",
                 Bookings = GetOrders(model)

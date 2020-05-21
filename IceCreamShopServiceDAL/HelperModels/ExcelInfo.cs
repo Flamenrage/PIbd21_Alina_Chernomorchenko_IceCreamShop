@@ -1,6 +1,7 @@
 ﻿using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace IceCreamShopServiceDAL.HelperModels
@@ -12,6 +13,6 @@ namespace IceCreamShopServiceDAL.HelperModels
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public List<ReportIceCreamIngredientViewModel> IceCreamIngredients { get; set; }
-        public List<ReportBookingsViewModel> Bookings { get; set; }
+        public List<IGrouping<DateTime, BookingViewModel>> Bookings { get; set; }
     }
 }
