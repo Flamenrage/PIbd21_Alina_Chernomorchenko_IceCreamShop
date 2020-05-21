@@ -260,8 +260,8 @@
         <DataSetName>DataSetStorageIngredient</DataSetName>
         <Top>1.62137cm</Top>
         <Left>2.95487cm</Left>
-        <Height>2.62467cm</Height>
-        <Width>10.30817cm</Width>
+        <Height>2.62466cm</Height>
+        <Width>10.30818cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -284,8 +284,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>4.09787cm</Top>
-        <Left>13.55937cm</Left>
+        <Top>4.42242cm</Top>
+        <Left>9.82699cm</Left>
         <Height>0.61383cm</Height>
         <Width>1.67217cm</Width>
         <ZIndex>2</ZIndex>
@@ -313,8 +313,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>4.09787cm</Top>
-        <Left>15.35853cm</Left>
+        <Top>4.42242cm</Top>
+        <Left>11.64027cm</Left>
         <Height>0.61383cm</Height>
         <Width>1.27847cm</Width>
         <ZIndex>3</ZIndex>
@@ -329,7 +329,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2in</Height>
+    <Height>4.48333in</Height>
     <Style />
   </Body>
   <Width>7.19167in</Width>
