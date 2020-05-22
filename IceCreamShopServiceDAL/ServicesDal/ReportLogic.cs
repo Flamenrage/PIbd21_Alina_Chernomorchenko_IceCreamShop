@@ -38,7 +38,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
             }
             return list;
         }
-        public List<IGrouping<DateTime, BookingViewModel>> GetOrders(ReportBindingModel model)
+       public List<IGrouping<DateTime, BookingViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = bookingLogic
            .Read(new BookingBindingModel
