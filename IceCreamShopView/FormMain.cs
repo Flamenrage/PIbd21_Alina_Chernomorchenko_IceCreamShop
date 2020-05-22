@@ -17,13 +17,16 @@ namespace IceCreamShopView
         private readonly MainService service;
         private readonly IBookingService bookingService;
         private readonly ReportLogic reportLogic;
+        private readonly WorkModeling modeling;
 
-        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic)
+
+        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic, WorkModeling modeling)
         {
             InitializeComponent();
             this.service = service;
             this.bookingService = bookingService;
             this.reportLogic = reportLogic;
+            this.modeling = modeling;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -42,7 +45,9 @@ namespace IceCreamShopView
                     dataGridView.Columns[2].Visible = true;
                     dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[8].Visible = false;
+                    dataGridView.Columns[11].Visible = false;
                 }
+                dataGridView.Update();
             }
             catch (Exception ex)
             {
@@ -67,43 +72,6 @@ namespace IceCreamShopView
             form.ShowDialog();
             LoadData();
         }
-
-        private void buttonTakeBookingInWork_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    service.TakeBookingInWork(new ChangeStatusBindingModel { BookingId = id });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void buttonBookingReady_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    service.FinishBooking(new ChangeStatusBindingModel { BookingId = id });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void buttonPayBooking_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -157,6 +125,17 @@ namespace IceCreamShopView
         {
             var form = Container.Resolve<FormClients>();
             form.ShowDialog();
+        }
+
+        private void исполнителиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+        }
+
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modeling.DoWork(); 
         }
     }
 }

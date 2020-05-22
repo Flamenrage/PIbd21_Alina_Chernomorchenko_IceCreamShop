@@ -14,7 +14,10 @@ namespace IceCreamShopServiceDAL.BindingModels
         public DateTime? DateImplement { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
-        public int ClientId { set; get; }
+        public int? ClientId { set; get; }
         public string ClientFIO { set; get; }
+        public string ImplementerFIO { set; get; }
+        public int? ImplementerId { set; get; }
+        public bool? FreeOrder { set; get; }
     }
 }

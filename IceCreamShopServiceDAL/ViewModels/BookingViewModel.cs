@@ -36,5 +36,8 @@ namespace IceCreamShopServiceDAL.ViewModels
         [DataMember]
         [DisplayName("Покупатель")]
         public string ClientFIO { set; get; }
+        [DisplayName("Кондитер")]
+        public string ImplementerFIO { set; get; }
+        public int? ImplementorId { set; get; }
     }
 }
