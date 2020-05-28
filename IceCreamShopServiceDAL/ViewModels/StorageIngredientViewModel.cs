@@ -14,5 +14,8 @@ namespace IceCreamShopServiceDAL.ViewModels
         public string IngredientName { get; set; }
         [DisplayName("Количество")]  
         public int Count { get; set; }
+        [DisplayName("Название склада")]
+        public string StorageName { get; set; }
+
     }
 }

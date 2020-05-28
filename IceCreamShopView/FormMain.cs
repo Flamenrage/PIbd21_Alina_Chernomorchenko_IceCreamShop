@@ -16,12 +16,14 @@ namespace IceCreamShopView
 
         private readonly MainService service;
         private readonly IBookingService bookingService;
+        private readonly ReportLogic reportLogic;
 
-        public FormMain(MainService service, IBookingService bookingService)
+        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic)
         {
             InitializeComponent();
             this.service = service;
             this.bookingService = bookingService;
+            this.reportLogic = reportLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -123,7 +125,6 @@ namespace IceCreamShopView
             form.ShowDialog();
             LoadData();
         }
-
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormStorages>();
@@ -134,6 +135,57 @@ namespace IceCreamShopView
         {
             var form = Container.Resolve<FormFillStorage>();
             form.ShowDialog();
+        }
+        private void списокМороженогоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveIceCreamsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ингредиентыПоМороженомуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIceCreamIngredients>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+      
+        private void списокИнгредиентовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIngredient>();
+            form.ShowDialog();
+        }
+        private void списокИнгредиентовПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportStorageIngredient>();
+            form.ShowDialog();
+        }
+
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveStoragesToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }
