@@ -60,15 +60,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                     CellToName = "C1"
                 });
                 uint rowIndex = 2;
-                List<DateTime> dates = new List<DateTime>();
-                foreach (var order in info.Bookings)
-                {
-                    if (!dates.Contains(order.DateCreate.Date))
-                    {
-                        dates.Add(order.DateCreate.Date);
-                    }
-                }
-                foreach (var date in dates)
+                foreach (var date in info.Bookings)
                 {
                     decimal generalSum = 0;
                     InsertCellInWorksheet(new ExcelCellParameters
@@ -77,11 +69,11 @@ namespace IceCreamShopServiceDAL.ServicesDal
                         ShareStringPart = shareStringPart,
                         ColumnName = "A",
                         RowIndex = rowIndex,
-                        Text = date.Date.ToShortDateString(),
+                        Text = date.Key.ToShortDateString(),
                         StyleIndex = 0U
                     });
                     rowIndex++;
-                    foreach (var order in info.Bookings.Where(rec => rec.DateCreate.Date == date.Date))
+                    foreach (var order in date)
                     {
                         InsertCellInWorksheet(new ExcelCellParameters
                         {

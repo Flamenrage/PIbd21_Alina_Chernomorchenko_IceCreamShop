@@ -39,23 +39,15 @@ namespace IceCreamShopView
                     DateFrom = dateTimePickerFrom.Value.Date,
                     DateTo = dateTimePickerTo.Value.Date
                 });
-                List<DateTime> dates = new List<DateTime>();
-                foreach (var order in dict)
-                {
-                    if (!dates.Contains(order.DateCreate.Date))
-                    {
-                        dates.Add(order.DateCreate.Date);
-                    }
-                }
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var date in dates)
+                    foreach (var date in dict)
                     {
                         decimal generalSum = 0;
-                        dataGridView.Rows.Add(new object[] { date.Date.ToShortDateString() });
+                        dataGridView.Rows.Add(new object[] { date.Key.ToShortDateString() });
 
-                        foreach (var order in dict.Where(rec => rec.DateCreate.Date == date.Date))
+                        foreach (var order in date)
                         {
                             dataGridView.Rows.Add(new object[] { "", order.IceCreamName, order.Sum });
                             generalSum += order.Sum;
