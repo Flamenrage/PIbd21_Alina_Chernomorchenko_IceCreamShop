@@ -34,7 +34,11 @@ namespace IceCreamShopView
             }
             try
             {
-                var dict = logic.GetOrders(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });
+                var dict = logic.GetOrders(new ReportBindingModel
+                {
+                    DateFrom = dateTimePickerFrom.Value.Date,
+                    DateTo = dateTimePickerTo.Value.Date
+                });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();

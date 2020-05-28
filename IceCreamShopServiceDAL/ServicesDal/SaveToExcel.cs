@@ -74,7 +74,6 @@ namespace IceCreamShopServiceDAL.ServicesDal
                         StyleIndex = 0U
                     });
                     rowIndex++;
-
                     foreach (var order in date)
                     {
                         InsertCellInWorksheet(new ExcelCellParameters
