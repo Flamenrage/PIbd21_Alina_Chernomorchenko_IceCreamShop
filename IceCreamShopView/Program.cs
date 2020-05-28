@@ -1,5 +1,5 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
-using IceCreamShopFileImplement.Implements;
+using IceCreamShopDatabaseImplement.Implements;
 using IceCreamShopServiceDAL.ServicesDal;
 using System;
 using System.Windows.Forms;
@@ -30,7 +30,7 @@ namespace IceCreamShopView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IBookingService, BookingService>(
                 new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IStorageLogic, StorageLogiс>(new
+            currentContainer.RegisterType<IStorageLogic, StorageLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainService>(
                 new HierarchicalLifetimeManager());

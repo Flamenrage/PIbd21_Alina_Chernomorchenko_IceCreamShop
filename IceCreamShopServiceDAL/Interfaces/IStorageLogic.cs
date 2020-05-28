@@ -14,7 +14,6 @@ namespace IceCreamShopServiceDAL.Interfaces
         void UpdElement(StorageBindingModel model);
         void DelElement(int id);
         void FillStorage(StorageIngredientBindingModel model);
-        bool CheckIngredientsAvailability(int icecreamId, int icecreamsCount);
         void RemoveFromStorage(int icecreamId, int icecreamsCount);
     }
 }

@@ -42,10 +42,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
             Console.WriteLine($"Take booking with id {Booking.Id} and IceCream id {Booking.IceCreamId}");
-            if (!storageLogic.CheckIngredientsAvailability(Booking.IceCreamId, Booking.Count))
-            {
-                throw new Exception("На складах не хватает ингредиентов");
-            }
+            storageLogic.RemoveFromStorage(Booking.IceCreamId, Booking.Count);
             BookingService.CreateOrUpdate(new BookingBindingModel
             {
                 Id = Booking.Id,
@@ -56,7 +53,6 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 DateImplement = DateTime.Now,
                 Status = BookingStatus.Выполняется
             });
-            storageLogic.RemoveFromStorage(Booking.IceCreamId, Booking.Count);
         }
 
         public void FinishBooking(ChangeStatusBindingModel model) {
