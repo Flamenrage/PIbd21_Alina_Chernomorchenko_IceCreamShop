@@ -20,7 +20,11 @@ namespace IceCreamShopFileImplement.Implements
 
         public void CreateOrUpdate(ClientBindingModel model)
         {
-            Client element;
+            Client element = source.Clients.FirstOrDefault(rec => rec.Login == model.Login && rec.Id != model.Id);
+            if (element != null)
+            {
+                throw new Exception("Уже есть клиент с таким логином");
+            } 
             if (model.Id.HasValue)
             {
                 element = source.Clients.FirstOrDefault(rec => rec.Id == model.Id);

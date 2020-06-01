@@ -15,7 +15,11 @@ namespace IceCreamShopDatabaseImplement.Implements
         {
             using (var context = new IceCreamShopDatabase())
             {
-                Client client;
+                Client client = context.Clients.FirstOrDefault(rec => rec.Login == model.Login && rec.Id != model.Id);
+                if (client != null)
+                {
+                    throw new Exception("Уже есть клиент с таким логином");
+                }
                 if (model.Id.HasValue)
                 {
                     client = context.Clients.FirstOrDefault(rec => rec.Id == model.Id);
