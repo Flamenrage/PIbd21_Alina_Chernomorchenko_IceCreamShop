@@ -36,6 +36,8 @@ namespace IceCreamShopFileImplement.Implements
             }
             element.IceCreamId = model.IceCreamId == 0 ? element.IceCreamId : model.IceCreamId;
             element.Count = model.Count;
+            element.ClientFIO = model.ClientFIO;
+            element.ClientId = model.ClientId;
             element.Sum = model.Sum;
             element.Status = model.Status;
             element.DateCreate = model.DateCreate;
@@ -67,6 +69,8 @@ namespace IceCreamShopFileImplement.Implements
                 Sum = rec.Sum,
                 Status = rec.Status,
                 DateCreate = rec.DateCreate,
+                ClientFIO = rec.ClientFIO,
+                ClientId = rec.ClientId,
                 DateImplement = rec.DateImplement
             })
             .ToList();

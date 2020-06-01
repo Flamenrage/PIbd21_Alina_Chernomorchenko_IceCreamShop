@@ -23,7 +23,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
         }
         public List<ReportIceCreamIngredientViewModel> GetIceCreamIngredient()
         {
-            var icecreams= iceCreamLogic.Read(null);
+            var icecreams = iceCreamLogic.Read(null);
             var list = new List<ReportIceCreamIngredientViewModel>();
             foreach (var icecream in icecreams)
             {

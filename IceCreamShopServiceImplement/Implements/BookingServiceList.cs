@@ -63,7 +63,7 @@ namespace IceCreamShopServiceImplement.Implements
             {
                 if (model != null)
                 {
-                    if (booking.Id == model.Id)
+                    if (booking.Id == model.Id && booking.ClientId == model.ClientId)
                     {
                         result.Add(CreateViewModel(booking));
                         break;
@@ -78,6 +78,8 @@ namespace IceCreamShopServiceImplement.Implements
         {
             ingredient.Count = model.Count;
             ingredient.DateCreate = model.DateCreate;
+            ingredient.ClientId = model.ClientId;
+            ingredient.ClientFIO = model.ClientFIO;
             ingredient.DateImplement = model.DateImplement;
             ingredient.IceCreamId = model.IceCreamId;
             ingredient.Status = model.Status;
@@ -102,6 +104,8 @@ namespace IceCreamShopServiceImplement.Implements
                 DateCreate = booking.DateCreate,
                 DateImplement = booking.DateImplement,
                 IceCreamName = icecreamName,
+                ClientId = booking.ClientId,
+                ClientFIO = booking.ClientFIO,
                 IceCreamId = booking.IceCreamId,
                 Status = booking.Status,
                 Sum = booking.Sum

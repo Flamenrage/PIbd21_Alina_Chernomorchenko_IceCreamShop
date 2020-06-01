@@ -34,14 +34,17 @@ namespace IceCreamShopView
             }
             try
             {
-                var dict = logic.GetOrders(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, 
-                    DateTo = dateTimePickerTo.Value.Date });
+                var dict = logic.GetOrders(new ReportBindingModel
+                {
+                    DateFrom = dateTimePickerFrom.Value.Date,
+                    DateTo = dateTimePickerTo.Value.Date
+                });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
                     foreach (var date in dict)
                     {
-                        decimal GenSum = 0;
+                        decimal generalSum = 0;
                         dataGridView.Rows.Add(new object[] { date.Key.ToShortDateString() });
 
                         foreach (var order in date)

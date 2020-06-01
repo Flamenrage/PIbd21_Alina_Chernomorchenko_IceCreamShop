@@ -8,14 +8,15 @@ namespace IceCreamShopServiceDAL.ServicesDal
 {
    public class MainService
     {
-        private readonly IBookingService BookingService;
         private readonly IStorageLogic storageLogic;
+        private readonly IBookingService BookingService;
 
         public MainService(IBookingService BookingService, IStorageLogic storageLogic)
         {
             this.BookingService = BookingService;
             this.storageLogic = storageLogic;
         }
+
         public void CreateBooking(CreateBookingBindingModel model)
         {
             BookingService.CreateOrUpdate(new BookingBindingModel
@@ -24,20 +25,19 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
-                Status = BookingStatus.Принят
+                Status = BookingStatus.Принят,
+                ClientFIO = model.ClientFIO,
+                ClientId = model.ClientId
             });
         }
         public void TakeBookingInWork(ChangeStatusBindingModel model)
         {
-            var Booking = BookingService.Read(new BookingBindingModel
-            {
-                Id = model.BookingId 
-            })?[0];
-            if (Booking == null)
+            var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+            if (booking == null)
             {
                 throw new Exception("Не найден заказ");
             }
-            if (Booking.Status != BookingStatus.Принят)
+            if (booking.Status != BookingStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
@@ -45,63 +45,63 @@ namespace IceCreamShopServiceDAL.ServicesDal
             storageLogic.RemoveFromStorage(Booking.IceCreamId, Booking.Count);
             BookingService.CreateOrUpdate(new BookingBindingModel
             {
-                Id = Booking.Id,
-                IceCreamId = Booking.IceCreamId,
-                Count = Booking.Count,
-                Sum = Booking.Sum,
-                DateCreate = Booking.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = BookingStatus.Выполняется
+                Id = booking.Id,
+                IceCreamId = booking.IceCreamId,
+                Count = booking.Count,
+                Sum = booking.Sum,
+                DateCreate = booking.DateCreate,
+                DateImplement = null,
+                Status = BookingStatus.Выполняется,
+                ClientId = booking.ClientId,
+                ClientFIO = booking.ClientFIO
             });
         }
-
-        public void FinishBooking(ChangeStatusBindingModel model) {
-             var Booking = BookingService.Read(new BookingBindingModel
-             {
-                 Id = model.BookingId
-             })?[0];
-             if (Booking == null)
-             {
-                throw new Exception("Не найден заказ");
-             }
-             if (Booking.Status != BookingStatus.Выполняется)
-             {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
-             }
-             BookingService.CreateOrUpdate(new BookingBindingModel
-             {
-                 Id = Booking.Id,
-                 IceCreamId = Booking.IceCreamId,
-                 Count = Booking.Count,
-                 Sum = Booking.Sum,
-                 DateCreate = Booking.DateCreate,
-                 DateImplement = Booking.DateImplement,
-                 Status = BookingStatus.Готов
-             });
-            }
-         public void PayBooking(ChangeStatusBindingModel model)
+        public void FinishBooking(ChangeStatusBindingModel model)
         {
-            var Booking = BookingService.Read(new BookingBindingModel
-            {
-                Id = model.BookingId
-            })?[0];
-            if (Booking == null)
+            var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+            if (booking == null)
             {
                 throw new Exception("Не найден заказ");
             }
-            if (Booking.Status != BookingStatus.Готов)
+            if (booking.Status != BookingStatus.Выполняется)
+            {
+                throw new Exception("Заказ не в статусе \"Выполняется\"");
+            }
+            BookingService.CreateOrUpdate(new BookingBindingModel
+            {
+                Id = booking.Id,
+                IceCreamId = booking.IceCreamId,
+                Count = booking.Count,
+                Sum = booking.Sum,
+                DateCreate = booking.DateCreate,
+                DateImplement = DateTime.Now,
+                Status = BookingStatus.Готов,
+                ClientId = booking.ClientId,
+                ClientFIO = booking.ClientFIO
+            });
+        }
+        public void PayBooking(ChangeStatusBindingModel model)
+        {
+            var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+            if (booking == null)
+            {
+                throw new Exception("Не найден заказ");
+            }
+            if (booking.Status != BookingStatus.Готов)
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
             BookingService.CreateOrUpdate(new BookingBindingModel
             {
-                Id = Booking.Id,
-                IceCreamId = Booking.IceCreamId,
-                Count = Booking.Count,
-                Sum = Booking.Sum,
-                DateCreate = Booking.DateCreate,
-                DateImplement = Booking.DateImplement,
-                Status = BookingStatus.Оплачен
+                Id = booking.Id,
+                IceCreamId = booking.IceCreamId,
+                Count = booking.Count,
+                Sum = booking.Sum,
+                DateCreate = booking.DateCreate,
+                DateImplement = booking.DateImplement,
+                Status = BookingStatus.Оплачен,
+                ClientId = booking.ClientId,
+                ClientFIO = booking.ClientFIO
             });
         }
         public void FillStorage(StorageIngredientBindingModel model)

@@ -63,13 +63,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
                     CellFromName = "A1",
                     CellToName = "E1"
                 });
-
                 uint rowIndex = 2;
                 if (info.Bookings != null)
                 {
                     foreach (var date in info.Bookings)
                     {
-                        decimal GenSum = 0;
+                        decimal generalSum = 0;
 
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -90,7 +89,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "B",
                                 RowIndex = rowIndex,
-                                Text = order.IceCreamName,
+                                Text = order.ForgeProductName,
                                 StyleIndex = 1U
                             });
 
@@ -103,7 +102,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 Text = order.Sum.ToString(),
                                 StyleIndex = 1U
                             });
-                            GenSum += order.Sum;
+                            generalSum += order.Sum;
                             rowIndex++;
                         }
 
@@ -123,7 +122,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = GenSum.ToString(),
+                            Text = generalSum.ToString(),
                             StyleIndex = 0U
                         });
                         rowIndex++;
@@ -133,7 +132,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 {
                     foreach (var storage in info.Storages)
                     {
-                        int ingredientsSum = 0;
+                        int billetsSum = 0;
 
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -147,7 +146,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
 
                         rowIndex++;
 
-                        foreach (var ingredient in storage.StorageIngredients)
+                        foreach (var billet in storage.StorageBillets)
                         {
                             InsertCellInWorksheet(new ExcelCellParameters
                             {
@@ -155,7 +154,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "B",
                                 RowIndex = rowIndex,
-                                Text = ingredient.IngredientName,
+                                Text = billet.BilletName,
                                 StyleIndex = 1U
                             });
 
@@ -165,10 +164,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "C",
                                 RowIndex = rowIndex,
-                                Text = ingredient.Count.ToString(),
+                                Text = billet.Count.ToString(),
                                 StyleIndex = 1U
                             });
-                            ingredientsSum += ingredient.Count;
+                            billetsSum += billet.Count;
                             rowIndex++;
                         }
 
@@ -178,7 +177,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                             ShareStringPart = shareStringPart,
                             ColumnName = "A",
                             RowIndex = rowIndex,
-                            Text = "Итого",
+                            Text = "Итого: ",
                             StyleIndex = 0U
                         });
 
@@ -188,7 +187,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = ingredientsSum.ToString(),
+                            Text = billetsSum.ToString(),
                             StyleIndex = 0U
                         });
                         rowIndex++;
