@@ -55,7 +55,6 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormIngredients>();
             form.ShowDialog();
         }
-
         private void мороженоеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormIceCreams>();
@@ -67,7 +66,6 @@ namespace IceCreamShopView
             form.ShowDialog();
             LoadData();
         }
-
         private void buttonTakeBookingInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -81,11 +79,10 @@ namespace IceCreamShopView
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                   MessageBoxIcon.Error);
                 }
             }
         }
-
         private void buttonBookingReady_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -99,11 +96,10 @@ namespace IceCreamShopView
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                   MessageBoxIcon.Error);
                 }
             }
         }
-
         private void buttonPayBooking_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -112,24 +108,43 @@ namespace IceCreamShopView
                 try
                 {
                     service.PayBooking(new ChangeStatusBindingModel { BookingId = id });
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                   MessageBoxIcon.Error);
                 }
             }
         }
-
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
         }
-        private void buttonCreateBooking_Click(object sender, EventArgs e)
+        private void списокМороженогоToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCreateBooking>();
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveIceCreamsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
+                }
+            }
+        }
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
             form.ShowDialog();
-            LoadData();
+        }
+        private void списокИнгредиентовПоМороженомуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIceCreamIngredients>();
+            form.ShowDialog();
         }
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -142,38 +157,13 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormFillStorage>();
             form.ShowDialog();
         }
-        private void ingredientsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    reportLogic.SaveIceCreamsToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-            }
-        }
 
-        private void iceCreamIngredientsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportIceCreamIngredients>();
-            form.ShowDialog();
-        }
-
-        private void orderDatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportOrders>();
-            form.ShowDialog();
-        }
-        private void списокИнгредиентовToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportIngredient>();
             form.ShowDialog();
         }
+
         private void списокИнгредиентовПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportStorageIngredient>();
@@ -191,6 +181,7 @@ namespace IceCreamShopView
                 }
             }
         }
+
         private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormClients>();

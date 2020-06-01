@@ -109,22 +109,36 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
         }
 
-        public void DelElement(int id)
+        public void DelElement(StorageBindingModel model)
         {
             using (var context = new IceCreamShopDatabase())
             {
-                var elem = context.Storages.FirstOrDefault(x => x.Id == id);
-                if (elem != null)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    context.Storages.Remove(elem);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Элемент не найден");
+                    try
+                    {
+                        context.StorageIngredients.RemoveRange(context.StorageIngredients.Where(rec => rec.StorageId == model.Id));
+                        Storage element = context.Storages.FirstOrDefault(rec => rec.Id == model.Id);
+                        if (element != null)
+                        {
+                            context.Storages.Remove(element);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("Элемент не найден");
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
+
 
         public void FillStorage(StorageIngredientBindingModel model)
         {
@@ -149,7 +163,7 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
         }
 
-        public void RemoveFromStorage(int icecreamId, int icecreamCount)
+        public void RemoveFromStorage(BookingViewModel booking)
         {
             using (var context = new IceCreamShopDatabase())
             {
@@ -157,27 +171,31 @@ namespace IceCreamShopDatabaseImplement.Implements
                 {
                     try
                     {
-                        var icecreamIngredients = context.IceCreamIngredients.
-                            Where(x => x.IceCreamId == icecreamId);
-                        if (icecreamIngredients.Count() == 0) return;
-                        foreach (var elem in icecreamIngredients)
+                        var iceCreamIngredients = context.IceCreamIngredients.Where(x => x.IceCreamId == booking.IceCreamId).ToList();
+                        var storageIngredients = context.StorageIngredients.ToList();
+                        foreach (var ingredient in iceCreamIngredients)
                         {
-                            int left = elem.Count * icecreamCount;
-                            var storageIngredients = context.StorageIngredients.Where
-                                (x => x.IngredientId == elem.IngredientId);
-                            int available = storageIngredients.Sum(x => x.Count);
-                            if (available < left) throw new Exception("Недостаточно ингредиентов на складе");
-                            foreach (var rec in storageIngredients)
+                            var count = ingredient.Count * booking.Count;
+                            foreach (var si in storageIngredients)
                             {
-                                int toRemove = left > rec.Count ? rec.Count : left;
-                                rec.Count -= toRemove;
-                                left -= toRemove;
-                                if (left == 0) break;
+                                if (si.IngredientId == ingredient.IngredientId && si.Count >= count)
+                                {
+                                    si.Count -= count;
+                                    count = 0;
+                                    context.SaveChanges();
+                                    break;
+                                }
+                                else if (si.IngredientId == ingredient.IngredientId && si.Count < count)
+                                {
+                                    count -= si.Count;
+                                    si.Count = 0;
+                                    context.SaveChanges();
+                                }
                             }
+                            if (count > 0)
+                                throw new Exception("Недостаточно компонентов на складе");
                         }
-                        context.SaveChanges();
                         transaction.Commit();
-                        return;
                     }
                     catch (Exception)
                     {

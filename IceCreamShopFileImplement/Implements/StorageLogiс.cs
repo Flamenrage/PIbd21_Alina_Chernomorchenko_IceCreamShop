@@ -91,9 +91,9 @@ namespace IceCreamShopFileImplement.Implements
                 throw new Exception("Элемент не найден");
             }
         }
-        public void DelElement(int id)
+        public void DelElement(StorageBindingModel model)
         {
-            var elem = source.Storages.FirstOrDefault(x => x.Id == id);
+            var elem = source.Storages.FirstOrDefault(x => x.Id == model.Id);
             if (elem != null)
             {
                 source.Storages.Remove(elem);
@@ -155,6 +155,11 @@ namespace IceCreamShopFileImplement.Implements
                 }
             }
             return;
+        }
+
+        public void RemoveFromStorage(BookingViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

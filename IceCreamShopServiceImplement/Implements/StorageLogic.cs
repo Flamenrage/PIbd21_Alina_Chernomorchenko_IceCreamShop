@@ -138,18 +138,18 @@ namespace IceCreamShopServiceImplement.Implements
             source.Storages[index].StorageName = model.StorageName;
 
         }
-        public void DelElement(int id)
+        public void DelElement(StorageBindingModel model)
         {
             for (int i = 0; i < source.StorageIngredients.Count; ++i)
             {
-                if (source.StorageIngredients[i].StorageId == id)
+                if (source.StorageIngredients[i].StorageId == model.Id)
                 {
                     source.StorageIngredients.RemoveAt(i--);
                 }
             }
             for (int i = 0; i < source.Storages.Count; ++i)
             {
-                if (source.Storages[i].Id == id)
+                if (source.Storages[i].Id == model.Id)
                 {
                     source.Storages.RemoveAt(i);
                     return;
@@ -157,7 +157,6 @@ namespace IceCreamShopServiceImplement.Implements
             }
             throw new Exception("Элемент не найден");
         }
-
         public void FillStorage(StorageIngredientBindingModel model)
         {
             int foundItemIndex = -1;
@@ -200,6 +199,11 @@ namespace IceCreamShopServiceImplement.Implements
         }
 
         public void RemoveFromStorage(int icecreamId, int icecreamsCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveFromStorage(BookingViewModel model)
         {
             throw new NotImplementedException();
         }

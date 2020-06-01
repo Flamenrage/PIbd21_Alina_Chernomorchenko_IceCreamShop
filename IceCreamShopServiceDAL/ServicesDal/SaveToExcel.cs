@@ -89,7 +89,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "B",
                                 RowIndex = rowIndex,
-                                Text = order.ForgeProductName,
+                                Text = order.IceCreamName,
                                 StyleIndex = 1U
                             });
 
@@ -132,7 +132,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 {
                     foreach (var storage in info.Storages)
                     {
-                        int billetsSum = 0;
+                        int Sum = 0;
 
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -146,7 +146,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
 
                         rowIndex++;
 
-                        foreach (var billet in storage.StorageBillets)
+                        foreach (var si in storage.StorageIngredients)
                         {
                             InsertCellInWorksheet(new ExcelCellParameters
                             {
@@ -154,7 +154,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "B",
                                 RowIndex = rowIndex,
-                                Text = billet.BilletName,
+                                Text = si.IngredientName,
                                 StyleIndex = 1U
                             });
 
@@ -164,10 +164,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
                                 ShareStringPart = shareStringPart,
                                 ColumnName = "C",
                                 RowIndex = rowIndex,
-                                Text = billet.Count.ToString(),
+                                Text = si.Count.ToString(),
                                 StyleIndex = 1U
                             });
-                            billetsSum += billet.Count;
+                            Sum += si.Count;
                             rowIndex++;
                         }
 
@@ -187,7 +187,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = billetsSum.ToString(),
+                            Text = Sum.ToString(),
                             StyleIndex = 0U
                         });
                         rowIndex++;

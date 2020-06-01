@@ -41,20 +41,27 @@ namespace IceCreamShopServiceDAL.ServicesDal
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            Console.WriteLine($"Take booking with id {Booking.Id} and IceCream id {Booking.IceCreamId}");
-            storageLogic.RemoveFromStorage(Booking.IceCreamId, Booking.Count);
-            BookingService.CreateOrUpdate(new BookingBindingModel
+            Console.WriteLine($"Take booking with id {booking.Id} and IceCream id {booking.IceCreamId}");
+            try
             {
-                Id = booking.Id,
-                IceCreamId = booking.IceCreamId,
-                Count = booking.Count,
-                Sum = booking.Sum,
-                DateCreate = booking.DateCreate,
-                DateImplement = null,
-                Status = BookingStatus.Выполняется,
-                ClientId = booking.ClientId,
-                ClientFIO = booking.ClientFIO
-            });
+                storageLogic.RemoveFromStorage(booking);
+                BookingService.CreateOrUpdate(new BookingBindingModel
+                {
+                    Id = booking.Id,
+                    IceCreamId = booking.IceCreamId,
+                    Count = booking.Count,
+                    Sum = booking.Sum,
+                    DateCreate = booking.DateCreate,
+                    DateImplement = null,
+                    Status = BookingStatus.Выполняется,
+                    ClientId = booking.ClientId,
+                    ClientFIO = booking.ClientFIO
+                });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void FinishBooking(ChangeStatusBindingModel model)
         {

@@ -50,9 +50,9 @@ namespace IceCreamShopView
                         foreach (var order in date)
                         {
                             dataGridView.Rows.Add(new object[] { "", order.IceCreamName, order.Sum });
-                            GenSum += order.Sum;
+                            generalSum += order.Sum;
                         }
-                        dataGridView.Rows.Add(new object[] { "General Sum:", "", GenSum });
+                        dataGridView.Rows.Add(new object[] { "Итого:", "", generalSum });
                     }
                 }
             }

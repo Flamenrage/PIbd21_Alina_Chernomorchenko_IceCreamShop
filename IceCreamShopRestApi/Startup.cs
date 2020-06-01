@@ -31,7 +31,9 @@ namespace IceCreamShopRestApi
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IIceCreamService, IceCreamService>();
-            services.AddTransient<MainService>();
+            services.AddTransient<IStorageLogic, StorageLogic>();
+            services.AddTransient<IIngredientService, IngredientService>();
+            services.AddTransient<MainService>(); 
             services.AddControllers();
         }
 
