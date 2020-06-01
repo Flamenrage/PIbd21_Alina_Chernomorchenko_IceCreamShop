@@ -17,13 +17,15 @@ namespace IceCreamShopView
         public readonly IIceCreamService serviceP;
 
         public readonly MainService serviceM;
+        private readonly IClientLogic serviceC;
 
         public FormCreateBooking(IIceCreamService serviceP,
-        MainService serviceM)
+        MainService serviceM, IClientLogic serviceC)
         {
             InitializeComponent();
             this.serviceP = serviceP;
             this.serviceM = serviceM;
+            this.serviceC = serviceC;
         }
         private void comboBoxIceCream_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -66,6 +68,13 @@ namespace IceCreamShopView
                     comboBoxIceCream.DataSource = listP;
                     comboBoxIceCream.SelectedItem = null;
                 }
+                var listClients = serviceC.Read(null);
+                if (listClients != null)
+                {
+                    comboBoxClients.DisplayMember = "ClientFIO";
+                    comboBoxClients.DataSource = listClients;
+                    comboBoxClients.SelectedItem = null;
+                }
             }
             catch (Exception ex)
             {
@@ -81,7 +90,12 @@ namespace IceCreamShopView
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-           
+            if (comboBoxClients.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (comboBoxIceCream.SelectedValue == null)
             {
                 MessageBox.Show("Выберите мороженое", "Ошибка", MessageBoxButtons.OK,
@@ -94,7 +108,9 @@ namespace IceCreamShopView
                 {
                     IceCreamId = Convert.ToInt32(comboBoxIceCream.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToDecimal(textBoxSum.Text)
+                    Sum = Convert.ToDecimal(textBoxSum.Text),
+                    ClientId = (comboBoxClients.SelectedItem as ClientViewModel).Id,
+                    ClientFIO = (comboBoxClients.SelectedItem as ClientViewModel).ClientFIO
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

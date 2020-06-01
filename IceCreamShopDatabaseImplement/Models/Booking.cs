@@ -7,6 +7,10 @@ namespace IceCreamShopDatabaseImplement.Models
 {
     public class Booking
     {
+        [Required]
+        public int ClientId { set; get; }
+        [Required]
+        public string ClientFIO { set; get; }
         public int Id { get; set; }
         public int IceCreamId { get; set; }
         [Required]

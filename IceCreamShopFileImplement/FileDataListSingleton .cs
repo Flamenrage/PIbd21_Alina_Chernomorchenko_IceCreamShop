@@ -17,16 +17,21 @@ namespace IceCreamShopFileImplement
         private readonly string BookingFileName = "Booking.xml";
         private readonly string IceCreamFileName = "IceCream.xml";
         private readonly string IceCreamIngredientFileName = "IceCreamIngredient.xml";
+        private readonly string ClientFileName = "Client.xml";
+
         public List<Ingredient> Ingredients { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<IceCream> IceCreams { get; set; }
         public List<IceCreamIngredient> IceCreamIngredients { get; set; }
+        public List<Client> Clients { set; get; }
+
         private FileDataListSingleton()
         {
             Ingredients = LoadIngredients();
             Bookings = LoadBookings();
             IceCreams = LoadIceCreams();
             IceCreamIngredients = LoadIceCreamIngredients();
+            Clients = LoadClients();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -42,6 +47,45 @@ namespace IceCreamShopFileImplement
             SaveBookings();
             SaveIceCreams();
             SaveIceCreamIngredients();
+            SaveClients();
+        }
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientFIO = elem.Element("ClientFIO").Value,
+                        Login = elem.Element("Login").Value,
+                        Password = elem.Element("Password").Value
+                    });
+                }
+            }
+            return list;
+        }
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("ClientFIO", client.ClientFIO),
+                    new XElement("Login", client.Login),
+                    new XElement("Password", client.Password)
+                    ));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
+            }
         }
         private List<Ingredient> LoadIngredients()
         {

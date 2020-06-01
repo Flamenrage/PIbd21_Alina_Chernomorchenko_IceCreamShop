@@ -63,6 +63,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 foreach (var date in info.Bookings)
                 {
                     decimal generalSum = 0;
+
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
@@ -85,7 +86,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                             StyleIndex = 1U
                         });
 
-                        InsertCellInWorksheet(new ExcelCellParameters
+                        InsertCellInWorksheet(new ExcelCellParameters 
                         {
                             Worksheet = worksheetPart.Worksheet,
                             ShareStringPart = shareStringPart,

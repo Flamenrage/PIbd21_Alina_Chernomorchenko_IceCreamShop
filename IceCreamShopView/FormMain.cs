@@ -39,8 +39,9 @@ namespace IceCreamShopView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[2].Visible = true;
+                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[8].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -59,6 +60,12 @@ namespace IceCreamShopView
         {
             var form = Container.Resolve<FormIceCreams>();
             form.ShowDialog();
+        }
+        private void buttonCreateBooking_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormCreateBooking>();
+            form.ShowDialog();
+            LoadData();
         }
 
         private void buttonTakeBookingInWork_Click(object sender, EventArgs e)
@@ -119,14 +126,7 @@ namespace IceCreamShopView
             LoadData();
         }
 
-        private void buttonCreateBooking_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormCreateBooking>();
-            form.ShowDialog();
-            LoadData();
-        }
-
-        private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ingredientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
@@ -142,15 +142,20 @@ namespace IceCreamShopView
             }
         }
 
-        private void ингредиентыПоМороженомуToolStripMenuItem_Click(object sender, EventArgs e)
+        private void iceCreamIngredientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportIceCreamIngredients>();
             form.ShowDialog();
         }
 
-        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        private void orderDatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }

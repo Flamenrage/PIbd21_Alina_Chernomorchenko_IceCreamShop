@@ -26,6 +26,13 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -46,9 +53,35 @@ namespace IceCreamShopDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("IceCreamId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.IceCream", b =>
@@ -113,6 +146,12 @@ namespace IceCreamShopDatabaseImplement.Migrations
 
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Booking", b =>
                 {
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Client", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("IceCreamShopDatabaseImplement.Models.IceCream", "IceCream")
                         .WithMany("Bookings")
                         .HasForeignKey("IceCreamId")
