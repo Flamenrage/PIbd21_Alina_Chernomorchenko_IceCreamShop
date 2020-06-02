@@ -68,7 +68,7 @@
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);
-            this.Name = "FormEnter";
+            this.Name = "formAuthorization";
             this.Text = "Вход";
             this.ResumeLayout(false);
             this.PerformLayout();
