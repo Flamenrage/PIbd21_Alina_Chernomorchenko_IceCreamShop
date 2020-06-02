@@ -322,6 +322,9 @@
     <EmbeddedResource Include="FormReportStorageIngredient.resx">
       <DependentUpon>FormReportStorageIngredient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormStorages.resx">
+      <DependentUpon>FormStorages.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
