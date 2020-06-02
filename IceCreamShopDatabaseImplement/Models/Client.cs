@@ -18,5 +18,8 @@ namespace IceCreamShopDatabaseImplement.Models
         public string Password { set; get; }
         [ForeignKey("ClientId")]
         public virtual List<Booking> Orders { set; get; }
+
+        [ForeignKey("ClientId")]
+        public virtual List<MessageInfo> MessageInfos { set; get; }
     }
 }

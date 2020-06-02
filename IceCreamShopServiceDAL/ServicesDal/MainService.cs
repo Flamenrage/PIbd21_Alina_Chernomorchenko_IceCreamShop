@@ -3,17 +3,20 @@ using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
 using System.Collections.Generic;
 using System;
+using IceCreamShopServiceDAL.HelperModels;
 
 namespace IceCreamShopServiceDAL.ServicesDal
 {
    public class MainService
     {
         private readonly IBookingService bookingLogic;
+        private readonly IClientLogic clientLogic;
         private readonly object locker = new object();
 
-        public MainService(IBookingService bookingLogic)
+        public MainService(IBookingService bookingLogic, IClientLogic clientLogic)
         {
             this.bookingLogic = bookingLogic;
+            this.clientLogic = clientLogic;
         }
         public void CreateBooking(CreateBookingBindingModel model)
         {
@@ -26,6 +29,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 Status = BookingStatus.Принят,
                 ClientFIO = model.ClientFIO,
                 ClientId = model.ClientId
+            });
+            MailLogic.SendMail(new MailSendInfo
+            {
+                MailAddress = clientLogic.Read(new ClientBindingModel { Id = model.ClientId })?[0]?.Login,
+                Subject = $"Новый заказ",
+                Text = $"Заказ принят."
             });
         }
         public void TakeBookingInWork(ChangeStatusBindingModel model)
@@ -59,6 +68,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
                     ImplementerId = model.ImplementerId.Value,
                     ClientFIO = booking.ClientFIO
                 });
+                MailLogic.SendMail(new MailSendInfo
+                {
+                    MailAddress = clientLogic.Read(new ClientBindingModel { Id = booking.ClientId })?[0]?.Login,
+                    Subject = $"Заказ №{booking.Id}",
+                    Text = $"Заказ №{booking.Id} передан в работу."
+                });
             }
         }
         public void FinishBooking(ChangeStatusBindingModel model)
@@ -86,6 +101,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 ClientId = booking.ClientId,
                 ClientFIO = booking.ClientFIO
             });
+            MailLogic.SendMail(new MailSendInfo
+            {
+                MailAddress = clientLogic.Read(new ClientBindingModel { Id = booking.ClientId })?[0]?.Login,
+                Subject = $"Заказ №{booking.Id}",
+                Text = $"Заказ №{booking.Id} готов."
+            });
         }
         public void PayBooking(ChangeStatusBindingModel model)
         {
@@ -111,6 +132,12 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 Status = BookingStatus.Оплачен,
                 ClientId = booking.ClientId,
                 ClientFIO = booking.ClientFIO
+            });
+            MailLogic.SendMail(new MailSendInfo
+            {
+                MailAddress = clientLogic.Read(new ClientBindingModel { Id = booking.ClientId })?[0]?.Login,
+                Subject = $"Заказ №{booking.Id}",
+                Text = $"Заказ №{booking.Id} оплачен."
             });
         }
     }

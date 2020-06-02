@@ -18,6 +18,8 @@ namespace IceCreamShopServiceImplement
         public List<IceCreamIngredient> IceCreamIngredients { get; set; }
         public List<Client> Clients { set; get; }
         public List<Implementer> Implementers { set; get; }
+        public List<MessageInfo> MessageInfoes { get; set; }
+
 
         private DataListSingleton()
         {
@@ -25,8 +27,9 @@ namespace IceCreamShopServiceImplement
             Bookings = new List<Booking>();
             IceCreams = new List<IceCream>();
             IceCreamIngredients = new List<IceCreamIngredient>();
-            Clients = new List<Client>();
-            Implementers = new List<Implementer>();  
+            Clients = new List<Client>(); 
+            Implementers = new List<Implementer>();
+            MessageInfoes = new List<MessageInfo>();
         }
 
         public static DataListSingleton GetInstance()

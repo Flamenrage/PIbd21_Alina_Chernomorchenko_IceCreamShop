@@ -34,6 +34,7 @@
             this.создатьЗаказToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.редактироватьПрофильToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обновитьСписокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientOrders)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +62,8 @@
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьЗаказToolStripMenuItem,
             this.редактироватьПрофильToolStripMenuItem,
-            this.обновитьСписокЗаказовToolStripMenuItem});
+            this.обновитьСписокЗаказовToolStripMenuItem,
+            this.checkEmailToolStripMenuItem});
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             this.менюToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.менюToolStripMenuItem.Text = "Меню";
@@ -86,6 +88,13 @@
             this.обновитьСписокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.обновитьСписокЗаказовToolStripMenuItem.Text = "Обновить список заказов";
             this.обновитьСписокЗаказовToolStripMenuItem.Click += RefreshOrderListToolStripMenuItem_Click;
+            //
+            // checkEmailToolStripMenuItem
+            //
+            this.checkEmailToolStripMenuItem.Name = "checkEmailToolStripMenuItem";
+            this.checkEmailToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.checkEmailToolStripMenuItem.Text = "Просмотреть сообщения";
+            this.checkEmailToolStripMenuItem.Click += ShowMessagesToolStripMenuItem_Click;
             // 
             // FormMainClient
             // 
@@ -111,6 +120,7 @@
         private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьЗаказToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem редактироватьПрофильToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem обновитьСписокЗаказовToolStripMenuItem;
     }
 }
