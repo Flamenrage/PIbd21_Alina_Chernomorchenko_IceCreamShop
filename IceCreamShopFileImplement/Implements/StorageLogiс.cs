@@ -138,28 +138,35 @@ namespace IceCreamShopFileImplement.Implements
             return true;
         }
 
-        public void RemoveFromStorage(int icecreamId, int icecreamCount)
-        {
-            var IceCreamIngredients = source.IceCreamIngredients.Where(x => x.IceCreamId == icecreamId);
-            if (IceCreamIngredients.Count() == 0) return;
-            foreach (var elem in IceCreamIngredients)
-            {
-                int left = elem.Count * icecreamCount;
-                var storageIngredients = source.StorageIngredients.FindAll(x => x.IngredientId == elem.IngredientId);
-                foreach (var rec in storageIngredients)
-                {
-                    int toRemove = left > rec.Count ? rec.Count : left;
-                    rec.Count -= toRemove;
-                    left -= toRemove;
-                    if (left == 0) break;
-                }
-            }
-            return;
-        }
-
         public void RemoveFromStorage(BookingViewModel model)
         {
-            throw new NotImplementedException();
+            var icecreamIngredients = source.IceCreamIngredients.Where(rec => rec.Id == model.IceCreamId).ToList();
+            foreach (var pc in icecreamIngredients)
+            {
+                var storageIngredients = source.StorageIngredients.Where(rec => rec.IngredientId == pc.IngredientId);
+                int sum = storageIngredients.Sum(rec => rec.Count);
+                if (sum < pc.Count * model.Count)
+                {
+                    throw new Exception("Недостаточно ингредиентов на складе");
+                }
+                else
+                {
+                    int left = pc.Count * model.Count;
+                    foreach (var si in storageIngredients)
+                    {
+                        if (si.Count >= left)
+                        {
+                            si.Count -= left;
+                            break;
+                        }
+                        else
+                        {
+                            left -= si.Count;
+                            si.Count = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }

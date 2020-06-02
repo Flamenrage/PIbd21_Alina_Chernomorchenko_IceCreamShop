@@ -4,6 +4,7 @@ using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using IceCreamShopServiceImplement.Models;
+using System.Linq;
 
 namespace IceCreamShopServiceImplement.Implements
 {
@@ -195,17 +196,47 @@ namespace IceCreamShopServiceImplement.Implements
         }
         public bool CheckIngredientsAvailability(int icecreamId, int icecreamsCount)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveFromStorage(int icecreamId, int icecreamsCount)
-        {
-            throw new NotImplementedException();
+            var iceCreamIngredients = source.IceCreamIngredients.Where(x => x.IceCreamId == icecreamId);
+            if (iceCreamIngredients.Count() == 0) return false;
+            foreach (var elem in iceCreamIngredients)
+            {
+                int count = 0;
+                count = source.StorageIngredients.FindAll(x => x.IngredientId == elem.IngredientId).Sum(x => x.Count);
+                if (count < elem.Count * icecreamsCount)
+                    return false;
+            }
+            return true;
         }
 
         public void RemoveFromStorage(BookingViewModel model)
         {
-            throw new NotImplementedException();
+            var icecreamIngredients = source.IceCreamIngredients.Where(rec => rec.Id == model.IceCreamId).ToList();
+            foreach (var pc in icecreamIngredients)
+            {
+                var storageIngredients = source.StorageIngredients.Where(rec => rec.IngredientId == pc.IngredientId);
+                int sum = storageIngredients.Sum(rec => rec.Count);
+                if (sum < pc.Count * model.Count)
+                {
+                    throw new Exception("Недостаточно ингредиентов на складе");
+                }
+                else
+                {
+                    int left = pc.Count * model.Count;
+                    foreach (var si in storageIngredients)
+                    {
+                        if (si.Count >= left)
+                        {
+                            si.Count -= left;
+                            break;
+                        }
+                        else
+                        {
+                            left -= si.Count;
+                            si.Count = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
