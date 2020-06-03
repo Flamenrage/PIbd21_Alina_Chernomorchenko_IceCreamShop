@@ -44,7 +44,7 @@ namespace IceCreamShopView
                 {
                     try
                     {
-                        logic.SaveIceCreamIngredientsToPdfFile(new ReportBindingModel
+                        logic.SaveIceCreamsToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                         });

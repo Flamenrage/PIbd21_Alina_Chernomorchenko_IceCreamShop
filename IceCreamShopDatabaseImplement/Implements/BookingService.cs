@@ -15,7 +15,7 @@ namespace IceCreamShopDatabaseImplement.Implements
 
         public void CreateOrUpdate(BookingBindingModel model)
         {
-            using (var context = new IceCreamShopDatabase())
+             using (var context = new IceCreamShopDatabase())
             {
                 Booking element;
                 if (model.Id.HasValue)

@@ -19,8 +19,9 @@ namespace IceCreamShopDatabaseImplement
         public virtual DbSet<IceCream> IceCreams { set; get; }
         public virtual DbSet<IceCreamIngredient> IceCreamIngredients { set; get; }
         public virtual DbSet<Booking> Bookings { set; get; }
+        public virtual DbSet<StorageIngredient> StorageIngredients { set; get; }
+        public virtual DbSet<Storage> Storages { set; get; }
         public virtual DbSet<Client> Clients { set; get; }
-
     }
 }
 

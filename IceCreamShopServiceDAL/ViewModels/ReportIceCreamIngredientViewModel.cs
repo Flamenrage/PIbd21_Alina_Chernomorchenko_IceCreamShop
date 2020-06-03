@@ -7,8 +7,7 @@ namespace IceCreamShopServiceDAL.ViewModels
     public class ReportIceCreamIngredientViewModel
     {
         public string IceCreamName { get; set; }
-        public string IngredientName { get; set; }
         public int Count { get; set; }
-
+        public string IngredientName { get; set; }
     }
 }

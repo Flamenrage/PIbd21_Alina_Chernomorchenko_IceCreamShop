@@ -24,11 +24,11 @@ namespace IceCreamShopView
             this.logic = logic;
         }
 
-        private void buttonMake_Click(object sender, EventArgs e)
+        private void ButtonMake_Click(object sender, EventArgs e)
         {
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
-                MessageBox.Show("Дата начала должна быть меньше даты окончания",
+                MessageBox.Show("Дата начала должна быть меньше даты окончания", 
                     "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -52,7 +52,7 @@ namespace IceCreamShopView
                             dataGridView.Rows.Add(new object[] { "", order.IceCreamName, order.Sum });
                             generalSum += order.Sum;
                         }
-                        dataGridView.Rows.Add(new object[] { "Итого: ", "", generalSum });
+                        dataGridView.Rows.Add(new object[] { "Итого:", "", generalSum });
                     }
                 }
             }
@@ -62,7 +62,7 @@ namespace IceCreamShopView
             }
         }
 
-        private void buttonSaveToExcel_Click(object sender, EventArgs e)
+        private void ButtonSaveToExcel_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
             {
@@ -70,25 +70,24 @@ namespace IceCreamShopView
                 {
                     if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
                     {
-                        MessageBox.Show("Дата начала должна быть меньше даты окончания",
-                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     try
                     {
-                        logic.SaveOrdersToExcelFile(new ReportBindingModel
+                        logic.SaveIceCreamIngredientToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value.Date,
                             DateTo = dateTimePickerTo.Value.Date,
                         });
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                       MessageBoxIcon.Error);
                     }
                 }
             }

@@ -17,12 +17,15 @@ namespace IceCreamShopFileImplement
         private readonly string BookingFileName = "Booking.xml";
         private readonly string IceCreamFileName = "IceCream.xml";
         private readonly string IceCreamIngredientFileName = "IceCreamIngredient.xml";
+        private readonly string StorageFileName = "Storage.xml";
+        private readonly string StorageIngredientFileName = "StorageIngredient.xml";
         private readonly string ClientFileName = "Client.xml";
-
         public List<Ingredient> Ingredients { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<IceCream> IceCreams { get; set; }
         public List<IceCreamIngredient> IceCreamIngredients { get; set; }
+        public List<Storage> Storages { get; set; }
+        public List<StorageIngredient> StorageIngredients { get; set; }
         public List<Client> Clients { set; get; }
 
         private FileDataListSingleton()
@@ -31,6 +34,8 @@ namespace IceCreamShopFileImplement
             Bookings = LoadBookings();
             IceCreams = LoadIceCreams();
             IceCreamIngredients = LoadIceCreamIngredients();
+            Storages = LoadStorages();
+            StorageIngredients = LoadStorageIngredients();
             Clients = LoadClients();
         }
         public static FileDataListSingleton GetInstance()
@@ -47,6 +52,8 @@ namespace IceCreamShopFileImplement
             SaveBookings();
             SaveIceCreams();
             SaveIceCreamIngredients();
+            SaveStorages();
+            SaveStorageIngredients();
             SaveClients();
         }
         private List<Client> LoadClients()
@@ -105,6 +112,24 @@ namespace IceCreamShopFileImplement
             }
             return list;
         }
+        private List<Storage> LoadStorages()
+        {
+            var list = new List<Storage>();
+            if (File.Exists(StorageFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageFileName);
+                var xElements = xDocument.Root.Elements("Storage").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Storage
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        StorageName = elem.Element("StorageName").Value
+                    });
+                }
+            }
+            return list;
+        }
         private List<Booking> LoadBookings()
         {
             var list = new List<Booking>();
@@ -123,6 +148,26 @@ namespace IceCreamShopFileImplement
                         Status = (BookingStatus)Enum.Parse(typeof(BookingStatus), elem.Element("Status").Value),
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
                         DateImplement = string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null : Convert.ToDateTime(elem.Element("DateImplement").Value),
+                    });
+                }
+            }
+            return list;
+        }
+        private List<StorageIngredient> LoadStorageIngredients()
+        {
+            var list = new List<StorageIngredient>();
+            if (File.Exists(StorageIngredientFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageIngredientFileName);
+                var xElements = xDocument.Root.Elements("StorageIngredient").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new StorageIngredient
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        StorageId = Convert.ToInt32(elem.Element("StorageId").Value),
+                        IngredientId = Convert.ToInt32(elem.Element("IngredientId").Value),
+                        Count = Convert.ToInt32(elem.Element("Count").Value)
                     });
                 }
             }
@@ -166,6 +211,38 @@ namespace IceCreamShopFileImplement
                 }
             }
             return list;
+        }
+        private void SaveStorages()
+        {
+            if (Storages != null)
+            {
+                var xElement = new XElement("Storages");
+                foreach (var Storage in Storages)
+                {
+                    xElement.Add(new XElement("Storage",
+                    new XAttribute("Id", Storage.Id),
+                    new XElement("StorageName", Storage.StorageName)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageFileName);
+            }
+        }
+        private void SaveStorageIngredients()
+        {
+            if (StorageIngredients != null)
+            {
+                var xElement = new XElement("StorageIngredients");
+                foreach (var StorageIngredient in StorageIngredients)
+                {
+                    xElement.Add(new XElement("StorageIngredient",
+                    new XAttribute("Id", StorageIngredient.Id),
+                    new XElement("StorageId", StorageIngredient.StorageId),
+                    new XElement("IngredientId", StorageIngredient.IngredientId),
+                    new XElement("Count", StorageIngredient.Count)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageIngredientFileName);
+            }
         }
         private void SaveIngredients()
         {
