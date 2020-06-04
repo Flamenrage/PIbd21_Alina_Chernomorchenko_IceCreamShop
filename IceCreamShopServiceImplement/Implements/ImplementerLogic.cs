@@ -95,7 +95,9 @@ namespace IceCreamShopServiceImplement.Implements
             return new ImplementerViewModel
             {
                 Id = implementer.Id,
-                ImplementerFIO = implementer.ImplementerFIO
+                ImplementerFIO = implementer.ImplementerFIO,
+                WorkingTime = implementer.WorkTime,
+                PauseTime = implementer.PauseTime
             };
         }
     }

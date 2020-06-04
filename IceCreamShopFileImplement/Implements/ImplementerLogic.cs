@@ -40,6 +40,8 @@ namespace IceCreamShopFileImplement.Implements
                 source.Implementers.Add(tmp);
             }
             tmp.ImplementerFIO = model.ImplementerFIO;
+            tmp.WorkTime = model.WorkingTime;
+            tmp.PauseTime = model.PauseTime;
         }
 
         public void Delete(ImplementerBindingModel model)
@@ -62,7 +64,9 @@ namespace IceCreamShopFileImplement.Implements
             .Select(rec => new ImplementerViewModel
             {
                 Id = rec.Id,
-                ImplementerFIO = rec.ImplementerFIO
+                ImplementerFIO = rec.ImplementerFIO,
+                WorkingTime = rec.WorkTime,
+                PauseTime = rec.PauseTime
             })
             .ToList();
         }
