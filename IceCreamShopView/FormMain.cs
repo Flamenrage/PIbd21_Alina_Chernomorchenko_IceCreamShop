@@ -42,8 +42,8 @@ namespace IceCreamShopView
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = true;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[8].Visible = false;
+                    dataGridView.Columns[11].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -164,7 +164,7 @@ namespace IceCreamShopView
 
         private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            modeling.DoWork(); 
+                modeling.DoWork();
         }
     }
 }

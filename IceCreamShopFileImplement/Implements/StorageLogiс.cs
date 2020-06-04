@@ -168,5 +168,10 @@ namespace IceCreamShopFileImplement.Implements
                 }
             }
         }
+
+        public void RemoveFromStorage(int iceCreamId, int count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

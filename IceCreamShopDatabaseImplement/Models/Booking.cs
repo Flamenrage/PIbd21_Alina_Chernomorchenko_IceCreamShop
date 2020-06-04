@@ -25,5 +25,6 @@ namespace IceCreamShopDatabaseImplement.Models
         public int? ImplementerId { set; get; }
         public string ImplementerFIO { set; get; }
         public virtual IceCream IceCream { get; set; }
+        public Implementer Implementer { get; set; }
     }
 }

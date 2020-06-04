@@ -41,51 +41,36 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 {
                     throw new Exception("Не найден заказ");
                 }
-                if (booking.Status != BookingStatus.Принят)
+                if (booking.Status != BookingStatus.Принят && booking.Status != BookingStatus.Нехватка)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    throw new Exception("Заказ не в статусе \"Принят\" или \"Нехватка\"");
                 }
                 if (booking.ImplementorId.HasValue)
                 {
                     throw new Exception("У заказа уже есть исполнитель");
                 }
-                BookingService.CreateOrUpdate(new BookingBindingModel
+                var bookingModel = new BookingBindingModel
                 {
                     Id = booking.Id,
                     IceCreamId = booking.IceCreamId,
                     Count = booking.Count,
                     Sum = booking.Sum,
-                    DateCreate = booking.DateCreate,
-                    DateImplement = null,
-                    Status = BookingStatus.Выполняется,
                     ClientId = booking.ClientId,
-                    ImplementerFIO = model.ImplementerFIO,
-                    ImplementerId = model.ImplementerId.Value,
-                    ClientFIO = booking.ClientFIO
-                });
-		        Console.WriteLine($"Take booking with id {booking.Id} and IceCream id {booking.IceCreamId}");
-		        try
-		        {
-		            storageLogic.RemoveFromStorage(booking);
-		            BookingService.CreateOrUpdate(new BookingBindingModel
-		            {
-		                Id = booking.Id,
-		                IceCreamId = booking.IceCreamId,
-		                Count = booking.Count,
-		                Sum = booking.Sum,
-		                DateCreate = booking.DateCreate,
-		                DateImplement = null,
-		                Status = BookingStatus.Выполняется,
-		                ImplementerFIO = model.ImplementerFIO,
-		                ImplementerId = model.ImplementerId.Value,
-		                ClientId = booking.ClientId,
-		                ClientFIO = booking.ClientFIO
-		            });
-		        }
-		        catch (Exception)
-		        {
-		            throw;
-		        }
+                    ClientFIO = booking.ClientFIO,
+                    DateCreate = booking.DateCreate
+                };
+                try
+                {
+                    storageLogic.RemoveFromStorage(booking);
+                    bookingModel.DateImplement = DateTime.Now;
+                    bookingModel.Status = BookingStatus.Выполняется;
+                    bookingModel.ImplementerId = model.ImplementerId;
+                }
+                catch
+                {
+                    bookingModel.Status = BookingStatus.Нехватка;
+                }
+                BookingService.CreateOrUpdate(bookingModel);
             }
         }
         public void FinishBooking(ChangeStatusBindingModel model)

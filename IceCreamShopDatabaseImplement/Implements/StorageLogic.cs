@@ -171,7 +171,8 @@ namespace IceCreamShopDatabaseImplement.Implements
                 {
                     try
                     {
-                        var iceCreamIngredients = context.IceCreamIngredients.Where(x => x.IceCreamId == booking.IceCreamId).ToList();
+                        var iceCreamIngredients = context.IceCreamIngredients
+                            .Where(x => x.IceCreamId == booking.IceCreamId).ToList();
                         var storageIngredients = context.StorageIngredients.ToList();
                         foreach (var ingredient in iceCreamIngredients)
                         {
@@ -195,6 +196,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                             if (count > 0)
                                 throw new Exception("Недостаточно компонентов на складе");
                         }
+                        context.SaveChanges();
                         transaction.Commit();
                     }
                     catch (Exception)

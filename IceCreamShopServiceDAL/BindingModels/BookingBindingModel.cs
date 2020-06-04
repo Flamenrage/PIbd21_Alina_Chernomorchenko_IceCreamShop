@@ -19,5 +19,6 @@ namespace IceCreamShopServiceDAL.BindingModels
         public string ImplementerFIO { set; get; }
         public int? ImplementerId { set; get; }
         public bool? FreeOrder { set; get; }
+        public bool? IsNotEnoughMaterialsBookings { get; set; }
     }
 }

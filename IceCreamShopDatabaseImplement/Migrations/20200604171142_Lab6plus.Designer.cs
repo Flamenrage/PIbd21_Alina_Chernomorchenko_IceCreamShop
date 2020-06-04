@@ -4,14 +4,16 @@ using IceCreamShopDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IceCreamShopDatabaseImplement.Migrations
 {
     [DbContext(typeof(IceCreamShopDatabase))]
-    partial class IceCreamShopDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200604171142_Lab6plus")]
+    partial class Lab6plus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,7 +230,7 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IceCreamShopDatabaseImplement.Models.Implementer", "Implementer")
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Implementer", null)
                         .WithMany("Orders")
                         .HasForeignKey("ImplementerId");
                 });
