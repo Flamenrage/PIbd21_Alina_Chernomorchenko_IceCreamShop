@@ -87,6 +87,8 @@ namespace IceCreamShopServiceImplement.Implements
         private Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
         {
             implementer.ImplementerFIO = model.ImplementerFIO;
+            implementer.WorkTime = model.WorkingTime;
+            implementer.PauseTime = model.PauseTime; 
             return implementer;
         }
 
