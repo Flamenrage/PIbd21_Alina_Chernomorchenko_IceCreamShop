@@ -18,12 +18,15 @@ namespace IceCreamShopFileImplement
         private readonly string IceCreamFileName = "IceCream.xml";
         private readonly string IceCreamIngredientFileName = "IceCreamIngredient.xml";
         private readonly string ClientFileName = "Client.xml";
+        private readonly string ImplementerFileName = "Implementer.xml";
+
 
         public List<Ingredient> Ingredients { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<IceCream> IceCreams { get; set; }
         public List<IceCreamIngredient> IceCreamIngredients { get; set; }
         public List<Client> Clients { set; get; }
+        public List<Implementer> Implementers { set; get; } 
 
         private FileDataListSingleton()
         {
@@ -32,6 +35,7 @@ namespace IceCreamShopFileImplement
             IceCreams = LoadIceCreams();
             IceCreamIngredients = LoadIceCreamIngredients();
             Clients = LoadClients();
+            Implementers = LoadImplementers();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -48,6 +52,7 @@ namespace IceCreamShopFileImplement
             SaveIceCreams();
             SaveIceCreamIngredients();
             SaveClients();
+            SaveImplementers();
         }
         private List<Client> LoadClients()
         {
@@ -69,6 +74,41 @@ namespace IceCreamShopFileImplement
             }
             return list;
         }
+        private List<Implementer> LoadImplementers()
+        {
+            var list = new List<Implementer>();
+            if (File.Exists(ImplementerFileName))
+            {
+                XDocument xDocument = XDocument.Load(ImplementerFileName);
+                var xElements = xDocument.Root.Elements("Implementor").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Implementer
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ImplementerFIO = elem.Element("ImplementerFIO").Value
+                    });
+                }
+            }
+            return list;
+        }
+
+        private void SaveImplementers()
+        {
+            if (Implementers != null)
+            {
+                var xElement = new XElement("Implementers");
+                foreach (var implementer in Implementers)
+                {
+                    xElement.Add(new XElement("Implementer",
+                    new XAttribute("Id", implementer.Id),
+                    new XElement("ImplementerFIO", implementer.ImplementerFIO)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ImplementerFileName);
+            }
+        }
+
         private void SaveClients()
         {
             if (Clients != null)

@@ -4,6 +4,7 @@ using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using IceCreamShopServiceImplement.Models;
+using IceCreamShopServiceDAL.Enums;
 
 namespace IceCreamShopServiceImplement.Implements
 {
@@ -68,23 +69,34 @@ namespace IceCreamShopServiceImplement.Implements
                         result.Add(CreateViewModel(booking));
                         break;
                     }
+                    else if (model.DateFrom.HasValue && model.DateTo.HasValue && booking.DateCreate >= model.DateFrom &&
+                        booking.DateCreate <= model.DateTo)
+                        result.Add(CreateViewModel(booking));
+                    else if (model.ClientId.HasValue && booking.ClientId == model.ClientId)
+                        result.Add(CreateViewModel(booking));
+                    else if (model.FreeOrder.HasValue && model.FreeOrder.Value && !(booking.ImplementerFIO != null))
+                        result.Add(CreateViewModel(booking));
+                    else if (model.ImplementerId.HasValue && booking.ImplementerId == model.ImplementerId.Value && booking.Status == BookingStatus.Выполняется)
+                        result.Add(CreateViewModel(booking));
                     continue;
                 }
                 result.Add(CreateViewModel(booking));
             }
             return result;
         }
-        private Booking CreateModel(BookingBindingModel model, Booking ingredient)
+        private Booking CreateModel(BookingBindingModel model, Booking booking)
         {
-            ingredient.Count = model.Count;
-            ingredient.DateCreate = model.DateCreate;
-            ingredient.ClientId = model.ClientId;
-            ingredient.ClientFIO = model.ClientFIO;
-            ingredient.DateImplement = model.DateImplement;
-            ingredient.IceCreamId = model.IceCreamId;
-            ingredient.Status = model.Status;
-            ingredient.Sum = model.Sum;
-            return ingredient;
+            booking.Count = model.Count;
+            booking.DateCreate = model.DateCreate;
+            booking.ClientId = model.ClientId.Value;
+            booking.ClientFIO = model.ClientFIO;
+            booking.DateImplement = model.DateImplement;
+            booking.ImplementerId = model.ImplementerId;
+            booking.ImplementerFIO = model.ImplementerFIO;
+            booking.IceCreamId = model.IceCreamId;
+            booking.Status = model.Status;
+            booking.Sum = model.Sum;
+            return booking;
         }
         private BookingViewModel CreateViewModel(Booking booking)
         {
@@ -106,6 +118,8 @@ namespace IceCreamShopServiceImplement.Implements
                 IceCreamName = icecreamName,
                 ClientId = booking.ClientId,
                 ClientFIO = booking.ClientFIO,
+                ImplementorId = booking.ImplementerId,
+                ImplementerFIO = booking.ImplementerFIO,
                 IceCreamId = booking.IceCreamId,
                 Status = booking.Status,
                 Sum = booking.Sum
