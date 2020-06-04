@@ -88,7 +88,7 @@ namespace IceCreamShopServiceImplement.Implements
         {
             implementer.ImplementerFIO = model.ImplementerFIO;
             implementer.WorkTime = model.WorkingTime;
-            implementer.PauseTime = model.PauseTime; 
+            implementer.PauseTime = model.PauseTime;
             return implementer;
         }
 
@@ -97,7 +97,7 @@ namespace IceCreamShopServiceImplement.Implements
             return new ImplementerViewModel
             {
                 Id = implementer.Id,
-                ImplementerFIO = implementer.ImplementerFIO,  
+                ImplementerFIO = implementer.ImplementerFIO,
                 WorkingTime = implementer.WorkTime,
                 PauseTime = implementer.PauseTime
             };

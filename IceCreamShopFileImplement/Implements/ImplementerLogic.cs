@@ -66,7 +66,7 @@ namespace IceCreamShopFileImplement.Implements
                 Id = rec.Id,
                 ImplementerFIO = rec.ImplementerFIO,
                 WorkingTime = rec.WorkTime,
-                PauseTime = rec.PauseTime   
+                PauseTime = rec.PauseTime
             })
             .ToList();
         }
