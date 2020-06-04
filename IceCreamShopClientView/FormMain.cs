@@ -52,5 +52,11 @@ namespace IceCreamShopClientView
         {
             LoadList();
         }
+
+        private void ShowMessagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormMessages();
+            form.ShowDialog();
+        }
     }
 }
