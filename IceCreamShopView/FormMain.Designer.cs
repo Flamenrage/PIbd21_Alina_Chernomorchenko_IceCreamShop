@@ -2,7 +2,7 @@
 {
     partial class FormMain
     {
-        /// <summary>
+         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
@@ -48,6 +48,8 @@
             this.ButtonBookingReady = new System.Windows.Forms.Button();
             this.ButtonPayBooking = new System.Windows.Forms.Button();
             this.ButtonRef = new System.Windows.Forms.Button();
+            this.исполнителиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.запускРаботToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +60,8 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
             this.отчетыToolStripMenuItem,
-            this.пополнитьСкладToolStripMenuItem});
+            this.пополнитьСкладToolStripMenuItem,
+            this.запускРаботToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -189,28 +192,6 @@
             this.ButtonСreateBooking.UseVisualStyleBackColor = true;
             this.ButtonСreateBooking.Click += new System.EventHandler(this.buttonCreateBooking_Click);
             // 
-            // ButtonTakeBookingInWork
-            // 
-            this.ButtonTakeBookingInWork.Location = new System.Drawing.Point(1009, 110);
-            this.ButtonTakeBookingInWork.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ButtonTakeBookingInWork.Name = "ButtonTakeBookingInWork";
-            this.ButtonTakeBookingInWork.Size = new System.Drawing.Size(168, 49);
-            this.ButtonTakeBookingInWork.TabIndex = 3;
-            this.ButtonTakeBookingInWork.Text = "Отдать на выполнение";
-            this.ButtonTakeBookingInWork.UseVisualStyleBackColor = true;
-            this.ButtonTakeBookingInWork.Click += new System.EventHandler(this.buttonTakeBookingInWork_Click);
-            // 
-            // ButtonBookingReady
-            // 
-            this.ButtonBookingReady.Location = new System.Drawing.Point(1009, 177);
-            this.ButtonBookingReady.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ButtonBookingReady.Name = "ButtonBookingReady";
-            this.ButtonBookingReady.Size = new System.Drawing.Size(168, 36);
-            this.ButtonBookingReady.TabIndex = 4;
-            this.ButtonBookingReady.Text = "Заказ готов";
-            this.ButtonBookingReady.UseVisualStyleBackColor = true;
-            this.ButtonBookingReady.Click += new System.EventHandler(this.buttonBookingReady_Click);
-            // 
             // ButtonPayBooking
             // 
             this.ButtonPayBooking.Location = new System.Drawing.Point(1009, 233);
@@ -232,6 +213,20 @@
             this.ButtonRef.Text = "Обновить список";
             this.ButtonRef.UseVisualStyleBackColor = true;
             this.ButtonRef.Click += new System.EventHandler(this.buttonRef_Click);
+            // 
+            // исполнителиToolStripMenuItem
+            // 
+            this.исполнителиToolStripMenuItem.Name = "исполнителиToolStripMenuItem";
+            this.исполнителиToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.исполнителиToolStripMenuItem.Text = "исполнители";
+            this.исполнителиToolStripMenuItem.Click += new System.EventHandler(this.исполнителиToolStripMenuItem_Click);
+            // 
+            // запускРаботToolStripMenuItem
+            // 
+            this.запускРаботToolStripMenuItem.Name = "запускРаботToolStripMenuItem";
+            this.запускРаботToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.запускРаботToolStripMenuItem.Text = "Запуск работ";
+            this.запускРаботToolStripMenuItem.Click += new System.EventHandler(this.запускРаботToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -266,8 +261,6 @@
         private System.Windows.Forms.ToolStripMenuItem мороженоеToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button ButtonСreateBooking;
-        private System.Windows.Forms.Button ButtonTakeBookingInWork;
-        private System.Windows.Forms.Button ButtonBookingReady;
         private System.Windows.Forms.Button ButtonPayBooking;
         private System.Windows.Forms.Button ButtonRef;
         private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
@@ -280,6 +273,8 @@
         private System.Windows.Forms.ToolStripMenuItem списокИнгредиентовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокИнгредиентовПоСкладамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокСкладовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem исполнителиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem запускРаботToolStripMenuItem;  
     }
 }
 

@@ -6,6 +6,7 @@ using IceCreamShopFileImplement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IceCreamShopServiceDAL.Enums;
 
 namespace IceCreamShopFileImplement.Implements
 {
@@ -37,7 +38,9 @@ namespace IceCreamShopFileImplement.Implements
             element.IceCreamId = model.IceCreamId == 0 ? element.IceCreamId : model.IceCreamId;
             element.Count = model.Count;
             element.ClientFIO = model.ClientFIO;
-            element.ClientId = model.ClientId;
+            element.ClientId = model.ClientId.Value;
+            element.ImplementerFIO = model.ImplementerFIO;
+            element.ImplementerId = model.ImplementerId;
             element.Sum = model.Sum;
             element.Status = model.Status;
             element.DateCreate = model.DateCreate;
@@ -59,7 +62,11 @@ namespace IceCreamShopFileImplement.Implements
         public List<BookingViewModel> Read(BookingBindingModel model)
         {
             return source.Bookings
-            .Where(rec => model == null || rec.Id == model.Id)
+                  .Where(rec => model == null || model.Id.HasValue && rec.Id == model.Id && rec.ClientId == model.ClientId ||
+            (model.DateTo.HasValue && model.DateFrom.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
+            (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+            (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) ||
+                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
             .Select(rec => new BookingViewModel
             {
                 Id = rec.Id,

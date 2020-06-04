@@ -19,6 +19,7 @@ namespace IceCreamShopServiceImplement
         public List<Storage> Storages { get; set; }
         public List<StorageIngredient> StorageIngredients { get; set; }
         public List<Client> Clients { set; get; }
+        public List<Implementer> Implementers { set; get; }
 
         private DataListSingleton()
         {
@@ -29,6 +30,7 @@ namespace IceCreamShopServiceImplement
             Storages = new List<Storage>();
             StorageIngredients = new List<StorageIngredient>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();  
         }
 
         public static DataListSingleton GetInstance()
