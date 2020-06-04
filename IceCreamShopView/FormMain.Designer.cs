@@ -44,8 +44,6 @@
             this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.ButtonСreateBooking = new System.Windows.Forms.Button();
-            this.ButtonTakeBookingInWork = new System.Windows.Forms.Button();
-            this.ButtonBookingReady = new System.Windows.Forms.Button();
             this.ButtonPayBooking = new System.Windows.Forms.Button();
             this.ButtonRef = new System.Windows.Forms.Button();
             this.исполнителиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -235,8 +233,6 @@
             this.ClientSize = new System.Drawing.Size(1208, 415);
             this.Controls.Add(this.ButtonRef);
             this.Controls.Add(this.ButtonPayBooking);
-            this.Controls.Add(this.ButtonBookingReady);
-            this.Controls.Add(this.ButtonTakeBookingInWork);
             this.Controls.Add(this.ButtonСreateBooking);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip);
