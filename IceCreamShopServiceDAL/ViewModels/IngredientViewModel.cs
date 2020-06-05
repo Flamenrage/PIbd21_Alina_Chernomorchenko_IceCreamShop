@@ -1,14 +1,15 @@
-﻿using System;
+﻿using IceCreamShopServiceDAL.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
 namespace IceCreamShopServiceDAL.ViewModels
 {
-    public class IngredientViewModel
+    public class IngredientViewModel : BaseViewModel
     {
-        public int Id { get; set; }
-        [DisplayName("Название ингредиента")]
+        [Column(title: "Название ингредиента", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string IngredientName { get; set; }
-    }    
+        public override List<string> Properties() => new List<string> { "Id", "IngredientName" };
+    }
 }
