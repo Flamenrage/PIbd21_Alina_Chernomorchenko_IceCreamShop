@@ -40,11 +40,11 @@
             this.assemblyDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запускРаботToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сообщенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьБэкапToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateBooking = new System.Windows.Forms.Button();
             this.buttonPayBooking = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
-            this.создатьБэкапToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +60,7 @@
             this.создатьБэкапToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1478, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1315, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -148,6 +148,13 @@
             this.сообщенияToolStripMenuItem.Text = "Сообщения";
             this.сообщенияToolStripMenuItem.Click += new System.EventHandler(this.сообщенияToolStripMenuItem_Click);
             // 
+            // создатьБэкапToolStripMenuItem
+            // 
+            this.создатьБэкапToolStripMenuItem.Name = "создатьБэкапToolStripMenuItem";
+            this.создатьБэкапToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.создатьБэкапToolStripMenuItem.Text = "Создать Бэкап";
+            this.создатьБэкапToolStripMenuItem.Click += new System.EventHandler(this.создатьБэкапToolStripMenuItem_Click);
+            // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
@@ -163,7 +170,7 @@
             // 
             // buttonCreateBooking
             // 
-            this.buttonCreateBooking.Location = new System.Drawing.Point(1246, 93);
+            this.buttonCreateBooking.Location = new System.Drawing.Point(1083, 80);
             this.buttonCreateBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCreateBooking.Name = "buttonCreateBooking";
             this.buttonCreateBooking.Size = new System.Drawing.Size(188, 36);
@@ -174,7 +181,7 @@
             // 
             // buttonPayBooking
             // 
-            this.buttonPayBooking.Location = new System.Drawing.Point(1246, 137);
+            this.buttonPayBooking.Location = new System.Drawing.Point(1083, 124);
             this.buttonPayBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPayBooking.Name = "buttonPayBooking";
             this.buttonPayBooking.Size = new System.Drawing.Size(188, 36);
@@ -185,7 +192,7 @@
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(1246, 181);
+            this.buttonRef.Location = new System.Drawing.Point(1083, 168);
             this.buttonRef.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(188, 36);
@@ -194,18 +201,11 @@
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
-            // создатьБэкапToolStripMenuItem
-            // 
-            this.создатьБэкапToolStripMenuItem.Name = "создатьБэкапToolStripMenuItem";
-            this.создатьБэкапToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
-            this.создатьБэкапToolStripMenuItem.Text = "Создать Бэкап";
-            this.создатьБэкапToolStripMenuItem.Click += new System.EventHandler(this.создатьБэкапToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1478, 631);
+            this.ClientSize = new System.Drawing.Size(1315, 631);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonPayBooking);
             this.Controls.Add(this.buttonCreateBooking);
