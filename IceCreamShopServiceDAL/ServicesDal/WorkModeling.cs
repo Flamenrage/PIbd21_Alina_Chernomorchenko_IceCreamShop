@@ -55,10 +55,11 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
-            var isNotEnoughMaterialsBookings = orders
-               .Where(x => x.Status == BookingStatus.Нехватка)
-               .Select(x => x)
-               .ToList();
+            // потом заказы со статусом «Требуются материалы» (вдруг материалы подвезли)
+            var isNotEnoughMaterialsBookings = bookingLogic.Read(new BookingBindingModel
+            {
+                IsNotEnoughMaterialsBookings = true
+            });
             orders.RemoveAll(x => isNotEnoughMaterialsBookings.Contains(x));
             DoWork(implementer, isNotEnoughMaterialsBookings);
             await Task.Run(() =>

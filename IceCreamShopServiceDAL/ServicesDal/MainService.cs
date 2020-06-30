@@ -69,6 +69,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 catch
                 {
                     bookingModel.Status = BookingStatus.Нехватка;
+                    throw;
                 }
                 BookingService.CreateOrUpdate(bookingModel);
             }
