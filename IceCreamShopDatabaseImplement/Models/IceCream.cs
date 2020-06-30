@@ -13,7 +13,9 @@ namespace IceCreamShopDatabaseImplement.Models
         public string IceCreamName { get; set; }
         [Required]
         public decimal Price { get; set; }
+        [ForeignKey("IceCreamId")]
         public virtual List<IceCreamIngredient> IceCreamIngredients { get; set; }
+        [ForeignKey("IceCreamId")]
         public virtual List<Booking> Bookings { get; set; }
     }
 }

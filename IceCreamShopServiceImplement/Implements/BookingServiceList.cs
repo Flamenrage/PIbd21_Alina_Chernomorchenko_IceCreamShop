@@ -78,6 +78,13 @@ namespace IceCreamShopServiceImplement.Implements
                         result.Add(CreateViewModel(booking));
                     else if (model.ImplementerId.HasValue && booking.ImplementerId == model.ImplementerId.Value && booking.Status == BookingStatus.Выполняется)
                         result.Add(CreateViewModel(booking));
+                    else if (model.IsNotEnoughMaterialsBookings.HasValue &&
+                            model.IsNotEnoughMaterialsBookings.Value &&
+                            booking.Status == BookingStatus.Нехватка)
+                        {
+                            result.Add(CreateViewModel(booking));
+                            continue;
+                        }
                     continue;
                 }
                 result.Add(CreateViewModel(booking));

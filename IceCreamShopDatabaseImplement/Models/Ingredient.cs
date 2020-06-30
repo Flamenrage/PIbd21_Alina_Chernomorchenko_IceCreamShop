@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
-using System.Collections.Generic;
 
 namespace IceCreamShopDatabaseImplement.Models
 {
@@ -13,5 +12,7 @@ namespace IceCreamShopDatabaseImplement.Models
         public string IngredientName { get; set; }
         [ForeignKey("IngredientId")]
         public virtual List<IceCreamIngredient> IceCreamIngredients { get; set; }
+        [ForeignKey("IngredientId")]
+        public virtual List<StorageIngredient> StorageIngredients { get; set; }
     }
 }

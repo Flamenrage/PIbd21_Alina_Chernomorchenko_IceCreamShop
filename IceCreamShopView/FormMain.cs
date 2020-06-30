@@ -19,7 +19,6 @@ namespace IceCreamShopView
         private readonly ReportLogic reportLogic;
         private readonly WorkModeling modeling;
 
-
         public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic, WorkModeling modeling)
         {
             InitializeComponent();
@@ -43,11 +42,9 @@ namespace IceCreamShopView
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = true;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[8].Visible = false;
                     dataGridView.Columns[11].Visible = false;
                 }
-                dataGridView.Update();
             }
             catch (Exception ex)
             {
@@ -60,7 +57,6 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormIngredients>();
             form.ShowDialog();
         }
-
         private void мороженоеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormIceCreams>();
@@ -80,21 +76,20 @@ namespace IceCreamShopView
                 try
                 {
                     service.PayBooking(new ChangeStatusBindingModel { BookingId = id });
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                   MessageBoxIcon.Error);
                 }
             }
         }
-
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
         }
-
-        private void ingredientsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокМороженогоToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
@@ -105,22 +100,56 @@ namespace IceCreamShopView
                         FileName = dialog.FileName
                     });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                   MessageBoxIcon.Information);
                 }
             }
         }
-
-        private void iceCreamIngredientsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportIceCreamIngredients>();
-            form.ShowDialog();
-        }
-
-        private void orderDatesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportOrders>();
             form.ShowDialog();
         }
+        private void списокИнгредиентовПоМороженомуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIceCreamIngredients>();
+            form.ShowDialog();
+        }
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormStorages>();
+            form.ShowDialog();
+        }
+
+        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormFillStorage>();
+            form.ShowDialog();
+        }
+
+        private void списокИнгредиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportIngredient>();
+            form.ShowDialog();
+        }
+
+        private void списокИнгредиентовПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportStorageIngredient>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    reportLogic.SaveStoragesToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormClients>();
@@ -135,7 +164,7 @@ namespace IceCreamShopView
 
         private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            modeling.DoWork(); 
+                modeling.DoWork();
         }
     }
 }

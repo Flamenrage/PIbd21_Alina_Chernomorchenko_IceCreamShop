@@ -173,6 +173,47 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.ToTable("Ingredients");
                 });
 
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Storage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("StorageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Storages");
+                });
+
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.StorageIngredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StorageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("StorageId");
+
+                    b.ToTable("StorageIngredients");
+                });
+
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Booking", b =>
                 {
                     b.HasOne("IceCreamShopDatabaseImplement.Models.Client", null)
@@ -187,7 +228,7 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IceCreamShopDatabaseImplement.Models.Implementer", null)
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Implementer", "Implementer")
                         .WithMany("Orders")
                         .HasForeignKey("ImplementerId");
                 });
@@ -203,6 +244,21 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.HasOne("IceCreamShopDatabaseImplement.Models.Ingredient", "Ingredient")
                         .WithMany("IceCreamIngredients")
                         .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.StorageIngredient", b =>
+                {
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Ingredient", "Ingredient")
+                        .WithMany("StorageIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Storage", "Storage")
+                        .WithMany("StorageIngredients")
+                        .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

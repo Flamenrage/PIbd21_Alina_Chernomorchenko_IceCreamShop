@@ -13,11 +13,13 @@ namespace IceCreamShopServiceDAL.ServicesDal
     {
         private readonly IIceCreamService iceCreamLogic;
         private readonly IBookingService bookingLogic;
-        public ReportLogic(IIceCreamService iceCreamLogic, IIngredientService ingredientLogic,
-            IBookingService bookingLogic)
+        private readonly IStorageLogic storageLogic;
+        public ReportLogic(IIceCreamService iceCreamLogic,
+            IBookingService bookingLogic, IStorageLogic storageLogic)
         {
             this.iceCreamLogic = iceCreamLogic;
             this.bookingLogic = bookingLogic;
+            this.storageLogic = storageLogic;
         }
         public List<ReportIceCreamIngredientViewModel> GetIceCreamIngredient()
         {
@@ -38,7 +40,27 @@ namespace IceCreamShopServiceDAL.ServicesDal
             }
             return list;
         }
-       public List<IGrouping<DateTime, BookingViewModel>> GetOrders(ReportBindingModel model)
+        public List<ReportStorageIngredientViewModel> GetStorageIngredients()
+        {
+            var storages = storageLogic.GetList();
+            var list = new List<ReportStorageIngredientViewModel>();
+            foreach (var storage in storages)
+            {
+                foreach (var si in storage.StorageIngredients)
+                {
+                    var record = new ReportStorageIngredientViewModel
+                    {
+                        StorageName = storage.StorageName,
+                        IngredientName = si.IngredientName,
+                        Count = si.Count
+                    };
+
+                    list.Add(record);
+                }
+            }
+            return list;
+        }
+        public List<IGrouping<DateTime, BookingViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = bookingLogic
            .Read(new BookingBindingModel
@@ -51,16 +73,46 @@ namespace IceCreamShopServiceDAL.ServicesDal
             .ToList();
             return list;
         }
-        public void SaveIceCreamsToWordFile(ReportBindingModel model)
+        public void SaveStoragesToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список мороженого",
-                IceCreams = iceCreamLogic.Read(null)
+                Title = "Список складов",
+                IceCreams = null,
+                Storages = storageLogic.GetList()
             });
         }
-        public void SaveOrdersToExcelFile(ReportBindingModel model)
+        public void SaveStorageIngredientToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateDoc(new ExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список ингредиентов по складу",
+                Bookings = null,
+                Storages = storageLogic.GetList()
+            });
+        }
+        public void SaveIceCreamsToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDoc(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список мороженого с ингредиентами",
+                IceCreamIngredients = GetIceCreamIngredient()
+            });
+        }
+        public void SaveIngredientsToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDoc(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список ингредиентов",
+                IceCreamIngredients = null,
+                StorageIngredients = GetStorageIngredients()
+            });
+        }
+        public void SaveIceCreamIngredientToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
@@ -69,15 +121,13 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 Bookings = GetOrders(model)
             });
         }
-
-        [Obsolete]
-        public void SaveIceCreamIngredientsToPdfFile(ReportBindingModel model)
+        public void SaveIceCreamsToWordFile(ReportBindingModel model)
         {
-            SaveToPdf.CreateDoc(new PdfInfo
+            SaveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список ингредиентов мороженого",
-                IceCreamIngredients = GetIceCreamIngredient()
+                Title = "Список мороженого",
+                IceCreams = iceCreamLogic.Read(null)
             });
         }
     }

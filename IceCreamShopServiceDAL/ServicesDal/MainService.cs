@@ -8,16 +8,20 @@ namespace IceCreamShopServiceDAL.ServicesDal
 {
    public class MainService
     {
-        private readonly IBookingService bookingLogic;
+        private readonly IStorageLogic storageLogic;
+        private readonly IBookingService BookingService;
         private readonly object locker = new object();
 
-        public MainService(IBookingService bookingLogic)
+
+        public MainService(IBookingService BookingService, IStorageLogic storageLogic)
         {
-            this.bookingLogic = bookingLogic;
+            this.BookingService = BookingService;
+            this.storageLogic = storageLogic;
         }
+
         public void CreateBooking(CreateBookingBindingModel model)
         {
-            bookingLogic.CreateOrUpdate(new BookingBindingModel
+            BookingService.CreateOrUpdate(new BookingBindingModel
             {
                 IceCreamId = model.IceCreamId,
                 Count = model.Count,
@@ -32,38 +36,47 @@ namespace IceCreamShopServiceDAL.ServicesDal
         {
             lock (locker)
             {
-                var booking = bookingLogic.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+                var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
                 if (booking == null)
                 {
                     throw new Exception("Не найден заказ");
                 }
-                if (booking.Status != BookingStatus.Принят)
+                if (booking.Status != BookingStatus.Принят && booking.Status != BookingStatus.Нехватка)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    throw new Exception("Заказ не в статусе \"Принят\" или \"Нехватка\"");
                 }
                 if (booking.ImplementorId.HasValue)
                 {
                     throw new Exception("У заказа уже есть исполнитель");
                 }
-                bookingLogic.CreateOrUpdate(new BookingBindingModel
+                var bookingModel = new BookingBindingModel
                 {
                     Id = booking.Id,
                     IceCreamId = booking.IceCreamId,
                     Count = booking.Count,
                     Sum = booking.Sum,
-                    DateCreate = booking.DateCreate,
-                    DateImplement = null,
-                    Status = BookingStatus.Выполняется,
                     ClientId = booking.ClientId,
-                    ImplementerFIO = model.ImplementerFIO,
-                    ImplementerId = model.ImplementerId.Value,
-                    ClientFIO = booking.ClientFIO
-                });
+                    ClientFIO = booking.ClientFIO,
+                    DateCreate = booking.DateCreate
+                };
+                try
+                {
+                    storageLogic.RemoveFromStorage(booking);
+                    bookingModel.DateImplement = DateTime.Now;
+                    bookingModel.Status = BookingStatus.Выполняется;
+                    bookingModel.ImplementerId = model.ImplementerId;
+                }
+                catch
+                {
+                    bookingModel.Status = BookingStatus.Нехватка;
+                    throw;
+                }
+                BookingService.CreateOrUpdate(bookingModel);
             }
         }
         public void FinishBooking(ChangeStatusBindingModel model)
         {
-            var booking = bookingLogic.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+            var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
             if (booking == null)
             {
                 throw new Exception("Не найден заказ");
@@ -72,7 +85,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
             {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
-            bookingLogic.CreateOrUpdate(new BookingBindingModel
+            BookingService.CreateOrUpdate(new BookingBindingModel
             {
                 Id = booking.Id,
                 IceCreamId = booking.IceCreamId,
@@ -89,7 +102,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
         }
         public void PayBooking(ChangeStatusBindingModel model)
         {
-            var booking = bookingLogic.Read(new BookingBindingModel { Id = model.BookingId })?[0];
+            var booking = BookingService.Read(new BookingBindingModel { Id = model.BookingId })?[0];
             if (booking == null)
             {
                 throw new Exception("Не найден заказ");
@@ -98,7 +111,7 @@ namespace IceCreamShopServiceDAL.ServicesDal
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            bookingLogic.CreateOrUpdate(new BookingBindingModel
+            BookingService.CreateOrUpdate(new BookingBindingModel
             {
                 Id = booking.Id,
                 IceCreamId = booking.IceCreamId,
@@ -112,6 +125,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 ClientId = booking.ClientId,
                 ClientFIO = booking.ClientFIO
             });
+        }
+        public void FillStorage(StorageIngredientBindingModel model)
+        {
+            storageLogic.FillStorage(model);
         }
     }
 }

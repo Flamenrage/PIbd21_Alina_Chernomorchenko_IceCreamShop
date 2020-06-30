@@ -9,7 +9,6 @@ namespace IceCreamShopServiceDAL.ServicesDal
 {
     class SaveToPdf
     {
-        [Obsolete]
         public static void CreateDoc(PdfInfo info)
         {
             Document document = new Document();
@@ -25,35 +24,82 @@ namespace IceCreamShopServiceDAL.ServicesDal
             {
                 table.AddColumn(elem);
             }
-            CreateRow(new PdfRowParameters
-            {
-                Table = table,
-                Texts = new List<string> { "Мороженое", "Ингредиент", "Количество" },
-                Style = "NormalTitle",
-                ParagraphAlignment = ParagraphAlignment.Center
-            });
-            foreach (var ad in info.IceCreamIngredients)
+            if (info.IceCreamIngredients != null)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> {
-                        ad.IceCreamName,
-                        ad.IngredientName,
-                        ad.Count.ToString()
+                    Texts = new List<string> { "Ингредиент", "Мороженое", "Число" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+                foreach (var fb in info.IceCreamIngredients)
+                {
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = table,
+                        Texts = new List<string>
+                    {
+                        fb.IngredientName,
+                        fb.IceCreamName,
+                        fb.Count.ToString()
+                    },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                }
+            }
+            else if (info.StorageIngredients != null)
+            {
+                int sum = 0;
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { "Ингредиент", "Склад", "Число" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+
+                foreach (var sb in info.StorageIngredients)
+                {
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = table,
+                        Texts = new List<string>
+                    {
+                        sb.IngredientName,
+                        sb.StorageName,
+                        sb.Count.ToString()
+                    },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                    sum += sb.Count;
+                }
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string>
+                    {
+                        "Всего",
+                        "",
+                        sum.ToString()
                     },
                     Style = "Normal",
                     ParagraphAlignment = ParagraphAlignment.Left
                 });
             }
-            PdfDocumentRenderer renderer = new PdfDocumentRenderer(true,
-                PdfSharp.Pdf.PdfFontEmbedding.Always)
+            PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
             {
                 Document = document
             };
             renderer.RenderDocument();
             renderer.PdfDocument.Save(info.FileName);
         }
+        /// <summary>
+        /// Создание стилей для документа
+        /// </summary>
+        /// <param name="document"></param>
         private static void DefineStyles(Document document)
         {
             Style style = document.Styles["Normal"];
@@ -62,6 +108,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
             style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
+        /// <summary>
+        /// Создание и заполнение строки
+        /// </summary>
+        /// <param name="rowParameters"></param>
         private static void CreateRow(PdfRowParameters rowParameters)
         {
             Row row = rowParameters.Table.AddRow();
@@ -77,6 +127,10 @@ namespace IceCreamShopServiceDAL.ServicesDal
                 });
             }
         }
+        /// <summary>
+        /// Заполнение ячейки
+        /// </summary>
+        /// <param name="cellParameters"></param>
         private static void FillCell(PdfCellParameters cellParameters)
         {
             cellParameters.Cell.AddParagraph(cellParameters.Text);

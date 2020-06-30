@@ -10,6 +10,7 @@ namespace IceCreamShopServiceDAL.HelperModels
     {
         public string FileName { get; set; }
         public string Title { get; set; }
+        public List<StorageViewModel> Storages { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public List<ReportIceCreamIngredientViewModel> IceCreamIngredients { get; set; }

@@ -66,18 +66,22 @@ namespace IceCreamShopFileImplement.Implements
             (model.DateTo.HasValue && model.DateFrom.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
             (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
             (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) ||
-                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
+            (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == BookingStatus.Выполняется) ||
+            (model.IsNotEnoughMaterialsBookings.HasValue && model.IsNotEnoughMaterialsBookings.Value && rec.Status == BookingStatus.Нехватка))
             .Select(rec => new BookingViewModel
             {
                 Id = rec.Id,
+                IceCreamId = rec.IceCreamId,
                 IceCreamName = source.IceCreams.FirstOrDefault(x => x.Id == rec.IceCreamId)?.IceCreamName,
                 Count = rec.Count,
+                ImplementorId = rec.ImplementerId,
+                ImplementerFIO = !string.IsNullOrEmpty(rec.ImplementerFIO) ? rec.ImplementerFIO : string.Empty,
                 Sum = rec.Sum,
                 Status = rec.Status,
                 DateCreate = rec.DateCreate,
                 ClientFIO = rec.ClientFIO,
                 ClientId = rec.ClientId,
-                DateImplement = rec.DateImplement
+                DateImplement = rec.DateImplement 
             })
             .ToList();
         }

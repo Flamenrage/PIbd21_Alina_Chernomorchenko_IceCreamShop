@@ -16,7 +16,7 @@ namespace IceCreamShopDatabaseImplement.Implements
 
         public void CreateOrUpdate(BookingBindingModel model)
         {
-            using (var context = new IceCreamShopDatabase())
+             using (var context = new IceCreamShopDatabase())
             {
                 Booking element;
                 if (model.Id.HasValue)
@@ -69,8 +69,8 @@ namespace IceCreamShopDatabaseImplement.Implements
                 return context.Bookings.Where(rec => model == null || rec.Id == model.Id || (rec.DateCreate >= model.DateFrom)
             && (rec.DateCreate <= model.DateTo) || (model.ClientId == rec.ClientId) ||
             (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) ||
-            (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus
-            .Выполняется))
+            (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == BookingStatus.Выполняется) ||
+            (model.IsNotEnoughMaterialsBookings.HasValue && model.IsNotEnoughMaterialsBookings.Value && rec.Status == BookingStatus.Нехватка))
             .Include(ord => ord.IceCream)
         .Select(rec => new BookingViewModel
             {
@@ -81,7 +81,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 ClientFIO = rec.ClientFIO,
                 ClientId = rec.ClientId,
                 ImplementorId = rec.ImplementerId,
-                ImplementerFIO = !string.IsNullOrEmpty(rec.ImplementerFIO) ? rec.ImplementerFIO : string.Empty,
+                ImplementerFIO = rec.Implementer.ImplementerFIO,
                 Sum = rec.Sum,
                 Status = rec.Status,
                 DateCreate = rec.DateCreate,

@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 namespace IceCreamShopServiceDAL.BindingModels
 {
+    [DataContract]
     public class ClientBindingModel
     {
         [DataMember]
