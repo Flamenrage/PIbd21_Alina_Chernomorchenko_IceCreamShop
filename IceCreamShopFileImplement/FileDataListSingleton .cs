@@ -208,6 +208,7 @@ namespace IceCreamShopFileImplement
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (BookingStatus)Enum.Parse(typeof(BookingStatus), elem.Element("Status").Value),
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
+                        ImplementerId = Convert.ToInt32(elem.Attribute("ImplementerId").Value),
                         DateImplement = string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null : Convert.ToDateTime(elem.Element("DateImplement").Value),
                     });
                 }
@@ -281,6 +282,7 @@ namespace IceCreamShopFileImplement
                     new XElement("Count", booking.Count),
                     new XElement("Sum", booking.Sum),
                     new XElement("Status", booking.Status),
+                    new XElement("ImplementerId", booking.ImplementerId),
                     new XElement("DateCreate", booking.DateCreate),
                     new XElement("DateImplement", booking.DateImplement)));
                 }

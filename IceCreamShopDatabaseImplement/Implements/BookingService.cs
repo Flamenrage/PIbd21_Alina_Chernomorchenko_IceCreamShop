@@ -66,11 +66,12 @@ namespace IceCreamShopDatabaseImplement.Implements
         {
             using (var context = new IceCreamShopDatabase())
             {
-                return context.Bookings.Where(rec => model == null || rec.Id == model.Id || (rec.DateCreate >= model.DateFrom)
-            && (rec.DateCreate <= model.DateTo) || (model.ClientId == rec.ClientId) ||
-            (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) ||
-            (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus
-            .Выполняется))
+                return context.Bookings.Where(rec => model == null 
+                || (rec.Id == model.Id)
+                || ((rec.DateCreate >= model.DateFrom) && (rec.DateCreate <= model.DateTo))
+                || (model.ClientId == rec.ClientId) 
+                || (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) 
+                || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
             .Include(ord => ord.IceCream)
         .Select(rec => new BookingViewModel
             {

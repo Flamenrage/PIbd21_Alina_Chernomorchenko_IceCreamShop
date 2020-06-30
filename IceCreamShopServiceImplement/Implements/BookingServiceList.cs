@@ -64,20 +64,15 @@ namespace IceCreamShopServiceImplement.Implements
             {
                 if (model != null)
                 {
-                    if (booking.Id == model.Id && booking.ClientId == model.ClientId)
+                    if ((model.Id.HasValue && booking.Id == model.Id)
+                        || (model.DateFrom.HasValue && model.DateTo.HasValue && booking.DateCreate >= model.DateFrom && booking.DateCreate <= model.DateTo)
+                        || (booking.ClientId == model.ClientId)
+                        || (model.FreeOrder.HasValue && model.FreeOrder.Value && !booking.ImplementerId.HasValue)
+                        || (model.ImplementerId.HasValue && booking.ImplementerId == model.ImplementerId && booking.Status == BookingStatus.Выполняется))
                     {
                         result.Add(CreateViewModel(booking));
                         break;
                     }
-                    else if (model.DateFrom.HasValue && model.DateTo.HasValue && booking.DateCreate >= model.DateFrom &&
-                        booking.DateCreate <= model.DateTo)
-                        result.Add(CreateViewModel(booking));
-                    else if (model.ClientId.HasValue && booking.ClientId == model.ClientId)
-                        result.Add(CreateViewModel(booking));
-                    else if (model.FreeOrder.HasValue && model.FreeOrder.Value && !(booking.ImplementerFIO != null))
-                        result.Add(CreateViewModel(booking));
-                    else if (model.ImplementerId.HasValue && booking.ImplementerId == model.ImplementerId.Value && booking.Status == BookingStatus.Выполняется)
-                        result.Add(CreateViewModel(booking));
                     continue;
                 }
                 result.Add(CreateViewModel(booking));
@@ -86,40 +81,107 @@ namespace IceCreamShopServiceImplement.Implements
         }
         private Booking CreateModel(BookingBindingModel model, Booking booking)
         {
-            booking.Count = model.Count;
-            booking.DateCreate = model.DateCreate;
-            booking.ClientId = model.ClientId.Value;
-            booking.ClientFIO = model.ClientFIO;
-            booking.DateImplement = model.DateImplement;
-            booking.ImplementerId = model.ImplementerId;
-            booking.ImplementerFIO = model.ImplementerFIO;
+            IceCream icecream = null;
+
+            foreach (IceCream i in source.IceCreams)
+            {
+                if (i.Id == model.IceCreamId)
+                {
+                    icecream = i;
+                    break;
+                }
+            }
+
+            Client client = null;
+
+            foreach (Client c in source.Clients)
+            {
+                if (c.Id == model.ClientId)
+                {
+                    client = c;
+                    break;
+                }
+            }
+
+            Implementer implementer = null;
+
+            foreach (Implementer i in source.Implementers)
+            {
+                if (i.Id == model.ImplementerId)
+                {
+                    implementer = i;
+                    break;
+                }
+            }
+
+            if (icecream == null || client == null || model.ImplementerId.HasValue && implementer == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+
             booking.IceCreamId = model.IceCreamId;
+            booking.ClientId = model.ClientId.Value;
+            booking.ClientFIO = client.ClientFIO;
+            booking.ImplementerId = (int)model.ImplementerId;
+            booking.ImplementerFIO = implementer.ImplementerFIO;
+            booking.Count = model.Count;
+            booking.Sum = model.Count * icecream.Price;
             booking.Status = model.Status;
-            booking.Sum = model.Sum;
+            booking.DateCreate = model.DateCreate;
+            booking.DateImplement = model.DateImplement;
             return booking;
         }
         private BookingViewModel CreateViewModel(Booking booking)
         {
-            string icecreamName = "";
-            foreach (var icecream in source.IceCreams)
+            IceCream icecream = null;
+
+            foreach (IceCream ice in source.IceCreams)
             {
-                if (icecream.Id == booking.IceCreamId)
+                if (ice.Id == booking.IceCreamId)
                 {
-                    icecreamName = icecream.IceCreamName;
+                    icecream = ice;
                     break;
                 }
             }
+
+            Client client = null;
+
+            foreach (Client c in source.Clients)
+            {
+                if (c.Id == booking.ClientId)
+                {
+                    client = c;
+                    break;
+                }
+            }
+
+            Implementer implementer = null;
+
+            foreach (Implementer i in source.Implementers)
+            {
+                if (i.Id == booking.ImplementerId)
+                {
+                    implementer = i;
+                    break;
+                }
+            }
+
+            if (icecream == null || client == null || booking.ImplementerId.HasValue && implementer == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+
             return new BookingViewModel
             {
                 Id = booking.Id,
                 Count = booking.Count,
                 DateCreate = booking.DateCreate,
                 DateImplement = booking.DateImplement,
-                IceCreamName = icecreamName,
+                IceCreamName = icecream.IceCreamName,
                 ClientId = booking.ClientId,
-                ClientFIO = booking.ClientFIO,
+                ClientFIO = client.ClientFIO,
                 ImplementorId = booking.ImplementerId,
-                ImplementerFIO = booking.ImplementerFIO,
+                ImplementerFIO = implementer.ImplementerFIO,
                 IceCreamId = booking.IceCreamId,
                 Status = booking.Status,
                 Sum = booking.Sum

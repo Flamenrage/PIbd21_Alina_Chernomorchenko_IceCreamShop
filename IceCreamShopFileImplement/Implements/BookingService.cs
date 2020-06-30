@@ -62,11 +62,12 @@ namespace IceCreamShopFileImplement.Implements
         public List<BookingViewModel> Read(BookingBindingModel model)
         {
             return source.Bookings
-                  .Where(rec => model == null || model.Id.HasValue && rec.Id == model.Id && rec.ClientId == model.ClientId ||
-            (model.DateTo.HasValue && model.DateFrom.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
-            (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
-            (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) ||
-                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
+                  .Where(rec => model == null 
+                  || (model.Id.HasValue && rec.Id == model.Id && rec.ClientId == model.ClientId)
+                  || (model.DateTo.HasValue && model.DateFrom.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) 
+                  || (model.ClientId.HasValue && rec.ClientId == model.ClientId) 
+                  || (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) 
+                  || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
             .Select(rec => new BookingViewModel
             {
                 Id = rec.Id,
