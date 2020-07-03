@@ -67,7 +67,7 @@ namespace IceCreamShopServiceImplement.Implements
                     if ((model.Id.HasValue && booking.Id == model.Id)
                         || (model.DateFrom.HasValue && model.DateTo.HasValue && booking.DateCreate >= model.DateFrom && booking.DateCreate <= model.DateTo)
                         || (booking.ClientId == model.ClientId)
-                        || (model.FreeOrder.HasValue && model.FreeOrder.Value && !booking.ImplementerId.HasValue)
+                        || (model.FreeOrder.HasValue && model.FreeOrder.Value)
                         || (model.ImplementerId.HasValue && booking.ImplementerId == model.ImplementerId && booking.Status == BookingStatus.Выполняется))
                     {
                         result.Add(CreateViewModel(booking));
@@ -119,16 +119,14 @@ namespace IceCreamShopServiceImplement.Implements
                 throw new Exception("Элемент не найден");
             }
 
-            booking.IceCreamId = model.IceCreamId;
-            booking.ClientId = model.ClientId.Value;
-            booking.ClientFIO = client.ClientFIO;
-            booking.ImplementerId = (int)model.ImplementerId;
-            booking.ImplementerFIO = implementer.ImplementerFIO;
             booking.Count = model.Count;
-            booking.Sum = model.Count * icecream.Price;
-            booking.Status = model.Status;
+            booking.ClientId = model.ClientId.Value;
             booking.DateCreate = model.DateCreate;
+            booking.ImplementerId = (int)model.ImplementerId;
             booking.DateImplement = model.DateImplement;
+            booking.IceCreamId = model.IceCreamId;
+            booking.Status = model.Status;
+            booking.Sum = model.Count * icecream.Price;
             return booking;
         }
         private BookingViewModel CreateViewModel(Booking booking)
@@ -166,7 +164,8 @@ namespace IceCreamShopServiceImplement.Implements
                 }
             }
 
-            if (icecream == null || client == null || booking.ImplementerId.HasValue && implementer == null)
+            if (icecream == null || client == null ||
+              implementer == null)
             {
                 throw new Exception("Элемент не найден");
             }

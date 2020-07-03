@@ -7,12 +7,9 @@ namespace IceCreamShopDatabaseImplement.Models
 {
     public class Booking
     {
+        public int Id { get; set; }
         [Required]
         public int ClientId { set; get; }
-        [Required]
-        public string ClientFIO { set; get; }
-        public int Id { get; set; }
-        public int IceCreamId { get; set; }
         [Required]
         public int Count { get; set; }
         [Required]
@@ -22,8 +19,10 @@ namespace IceCreamShopDatabaseImplement.Models
         [Required]
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
-        public int? ImplementerId { set; get; }
-        public string ImplementerFIO { set; get; }
+        public int IceCreamId { get; set; }
+        public virtual Client Client { get; set; }
         public virtual IceCream IceCream { get; set; }
+        public int? ImplementerId { get; set; }
+        public Implementer Implementer { get; set; }
     }
 }

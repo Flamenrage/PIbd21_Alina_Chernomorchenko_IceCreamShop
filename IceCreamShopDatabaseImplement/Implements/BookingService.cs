@@ -34,11 +34,9 @@ namespace IceCreamShopDatabaseImplement.Implements
                     context.Bookings.Add(element);
                 }
                 element.IceCreamId = model.IceCreamId == 0 ? element.IceCreamId : model.IceCreamId;
-                element.Count = model.Count;
-                element.ClientFIO = model.ClientFIO;
                 element.ClientId = model.ClientId.Value;
-                element.ImplementerFIO = model.ImplementerFIO;
                 element.ImplementerId = model.ImplementerId;
+                element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
                 element.DateCreate = model.DateCreate;
@@ -70,7 +68,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 || (rec.Id == model.Id)
                 || ((rec.DateCreate >= model.DateFrom) && (rec.DateCreate <= model.DateTo))
                 || (model.ClientId == rec.ClientId) 
-                || (model.FreeOrder.HasValue && model.FreeOrder.Value && !(rec.ImplementerFIO != null)) 
+                || (model.FreeOrder.HasValue && model.FreeOrder.Value && !rec.ImplementerId.HasValue) 
                 || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId.Value && rec.Status == BookingStatus.Выполняется))
             .Include(ord => ord.IceCream)
         .Select(rec => new BookingViewModel
@@ -78,15 +76,15 @@ namespace IceCreamShopDatabaseImplement.Implements
                 Id = rec.Id,
                 IceCreamId = rec.IceCreamId,
                 IceCreamName = rec.IceCream.IceCreamName,
-                Count = rec.Count,
-                ClientFIO = rec.ClientFIO,
+                ClientFIO = rec.Client.ClientFIO,
                 ClientId = rec.ClientId,
-                ImplementorId = rec.ImplementerId,
-                ImplementerFIO = !string.IsNullOrEmpty(rec.ImplementerFIO) ? rec.ImplementerFIO : string.Empty,
-                Sum = rec.Sum,
-                Status = rec.Status,
+                Count = rec.Count,
                 DateCreate = rec.DateCreate,
-                DateImplement = rec.DateImplement
+                DateImplement = rec.DateImplement,
+                Status = rec.Status,
+                Sum = rec.Sum,
+                ImplementorId = rec.ImplementerId,
+                ImplementerFIO = rec.Implementer.ImplementerFIO
             })
             .ToList();
             }
