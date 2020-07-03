@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopServiceDAL", "IceCreamShopServiceDAL\IceCreamShopServiceDAL.csproj", "{CD84CBCB-3A8B-4FDB-BCF9-946750045DAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopView", "IceCreamShopView\IceCreamShopView.csproj", "{1DF3E398-A922-427D-BC87-AE8D2A8BE676}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopServiceImplement", "IceCreamShopServiceImplement\IceCreamShopServiceImplement.csproj", "{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopFileImplement", "IceCreamShopFileImplement\IceCreamShopFileImplement.csproj", "{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopDatabaseImplement", "IceCreamShopDatabaseImplement\IceCreamShopDatabaseImplement.csproj", "{BB81C010-477F-4546-9E2B-53EBF2990146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopRestApi", "IceCreamShopRestApi\IceCreamShopRestApi.csproj", "{B166000B-1C3E-452F-9C92-5E55653C62EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopClientView", "IceCreamShopClientView\IceCreamShopClientView.csproj", "{27F3A535-A977-458F-AA1D-4218DE242A7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD84CBCB-3A8B-4FDB-BCF9-946750045DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD84CBCB-3A8B-4FDB-BCF9-946750045DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD84CBCB-3A8B-4FDB-BCF9-946750045DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD84CBCB-3A8B-4FDB-BCF9-946750045DAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF3E398-A922-427D-BC87-AE8D2A8BE676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF3E398-A922-427D-BC87-AE8D2A8BE676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF3E398-A922-427D-BC87-AE8D2A8BE676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF3E398-A922-427D-BC87-AE8D2A8BE676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7771738-C7D2-4B15-A1B8-B888D2C4FBB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC41919-83B9-4C42-A91C-AB8BCF2481BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB81C010-477F-4546-9E2B-53EBF2990146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B166000B-1C3E-452F-9C92-5E55653C62EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B166000B-1C3E-452F-9C92-5E55653C62EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B166000B-1C3E-452F-9C92-5E55653C62EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B166000B-1C3E-452F-9C92-5E55653C62EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F3A535-A977-458F-AA1D-4218DE242A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F3A535-A977-458F-AA1D-4218DE242A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F3A535-A977-458F-AA1D-4218DE242A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F3A535-A977-458F-AA1D-4218DE242A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FB24C5E-5F09-4D4E-BB90-0BCCB4BFB026}
+	EndGlobalSection
+EndGlobal
