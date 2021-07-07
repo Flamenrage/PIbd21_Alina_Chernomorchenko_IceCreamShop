@@ -39,11 +39,12 @@
             this.BookingDatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.assemblyDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запускРаботToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сообщенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьБэкапToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateBooking = new System.Windows.Forms.Button();
             this.buttonPayBooking = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
-            this.сообщенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -55,10 +56,11 @@
             this.справочникиToolStripMenuItem,
             this.reportsToolStripMenuItem,
             this.запускРаботToolStripMenuItem,
-            this.сообщенияToolStripMenuItem});
+            this.сообщенияToolStripMenuItem,
+            this.создатьБэкапToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1776, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1315, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -139,6 +141,20 @@
             this.запускРаботToolStripMenuItem.Text = "Запуск работ";
             this.запускРаботToolStripMenuItem.Click += new System.EventHandler(this.запускРаботToolStripMenuItem_Click);
             // 
+            // сообщенияToolStripMenuItem
+            // 
+            this.сообщенияToolStripMenuItem.Name = "сообщенияToolStripMenuItem";
+            this.сообщенияToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
+            this.сообщенияToolStripMenuItem.Text = "Сообщения";
+            this.сообщенияToolStripMenuItem.Click += new System.EventHandler(this.сообщенияToolStripMenuItem_Click);
+            // 
+            // создатьБэкапToolStripMenuItem
+            // 
+            this.создатьБэкапToolStripMenuItem.Name = "создатьБэкапToolStripMenuItem";
+            this.создатьБэкапToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.создатьБэкапToolStripMenuItem.Text = "Создать Бэкап";
+            this.создатьБэкапToolStripMenuItem.Click += new System.EventHandler(this.создатьБэкапToolStripMenuItem_Click);
+            // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
@@ -149,12 +165,12 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(1432, 583);
+            this.dataGridView.Size = new System.Drawing.Size(1037, 583);
             this.dataGridView.TabIndex = 1;
             // 
             // buttonCreateBooking
             // 
-            this.buttonCreateBooking.Location = new System.Drawing.Point(1457, 105);
+            this.buttonCreateBooking.Location = new System.Drawing.Point(1083, 80);
             this.buttonCreateBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCreateBooking.Name = "buttonCreateBooking";
             this.buttonCreateBooking.Size = new System.Drawing.Size(188, 36);
@@ -165,7 +181,7 @@
             // 
             // buttonPayBooking
             // 
-            this.buttonPayBooking.Location = new System.Drawing.Point(1457, 149);
+            this.buttonPayBooking.Location = new System.Drawing.Point(1083, 124);
             this.buttonPayBooking.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPayBooking.Name = "buttonPayBooking";
             this.buttonPayBooking.Size = new System.Drawing.Size(188, 36);
@@ -176,7 +192,7 @@
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(1457, 193);
+            this.buttonRef.Location = new System.Drawing.Point(1083, 168);
             this.buttonRef.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(188, 36);
@@ -185,18 +201,11 @@
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
-            // сообщенияToolStripMenuItem
-            // 
-            this.сообщенияToolStripMenuItem.Name = "сообщенияToolStripMenuItem";
-            this.сообщенияToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
-            this.сообщенияToolStripMenuItem.Text = "Сообщения";
-            this.сообщенияToolStripMenuItem.Click += new System.EventHandler(this.сообщенияToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1776, 631);
+            this.ClientSize = new System.Drawing.Size(1315, 631);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonPayBooking);
             this.Controls.Add(this.buttonCreateBooking);
@@ -234,6 +243,7 @@
         private System.Windows.Forms.ToolStripMenuItem исполнителиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem запускРаботToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сообщенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem создатьБэкапToolStripMenuItem;
     }
 }
 

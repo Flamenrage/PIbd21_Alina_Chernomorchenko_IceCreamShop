@@ -18,15 +18,16 @@ namespace IceCreamShopView
         private readonly IBookingService bookingService;
         private readonly ReportLogic reportLogic;
         private readonly WorkModeling modeling;
+        private readonly BackUpAbstractLogic backUpLogic;
 
-
-        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic, WorkModeling modeling)
+        public FormMain(MainService service, IBookingService bookingService, ReportLogic reportLogic, WorkModeling modeling, BackUpAbstractLogic backUpLogic)
         {
             InitializeComponent();
             this.service = service;
             this.bookingService = bookingService;
             this.reportLogic = reportLogic;
             this.modeling = modeling;
+            this.backUpLogic = backUpLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -36,17 +37,7 @@ namespace IceCreamShopView
         {
             try
             {
-                var list = bookingService.Read(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = true;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[8].Visible = false;
-                    dataGridView.Columns[11].Visible = false;
-                }
+                Program.ConfigGrid(bookingService.Read(null), dataGridView);
                 dataGridView.Update();
             }
             catch (Exception ex)
@@ -142,6 +133,26 @@ namespace IceCreamShopView
         {
             var form = Container.Resolve<FormMessages>();
             form.ShowDialog(); 
+        }
+
+        private void создатьБэкапToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (backUpLogic != null)
+                {
+                    var dialog = new FolderBrowserDialog();
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        backUpLogic.CreateArchive(dialog.SelectedPath);
+                        MessageBox.Show("Бэкап создан", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

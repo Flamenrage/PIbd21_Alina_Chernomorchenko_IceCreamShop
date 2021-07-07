@@ -30,14 +30,7 @@ namespace IceCreamShopView
         {
             try
             {
-                var list = service.Read(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
-                }
+                Program.ConfigGrid(service.Read(null), dataGridView);
             }
             catch (Exception ex)
             {

@@ -62,8 +62,9 @@ namespace IceCreamShopDatabaseImplement.Implements
             using (var context = new IceCreamShopDatabase())
             {
                 return context.Clients
-                .Where(rec => model == null || rec.Id == model.Id ||
-                rec.Login == model.Login && rec.Password == model.Password)
+                .Where(rec => model == null 
+                || (rec.Id == model.Id)
+                || (rec.Login == model.Login && rec.Password == model.Password))
                 .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,

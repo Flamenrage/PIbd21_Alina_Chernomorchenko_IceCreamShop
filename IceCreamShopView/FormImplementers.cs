@@ -29,8 +29,14 @@ namespace IceCreamShopView
 
         private void LoadData()
         {
-            dataGridViewImplementers.DataSource = implementerLogic.Read(null);
-            dataGridViewImplementers.Columns[0].Visible = false;
+            try
+            {
+                Program.ConfigGrid(implementerLogic.Read(null), dataGridViewImplementers);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonAddImplementer_Click(object sender, EventArgs e)

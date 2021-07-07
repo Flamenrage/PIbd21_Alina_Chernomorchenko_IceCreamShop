@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Runtime.Serialization;
-
+using IceCreamShopServiceDAL.Attributes;
 
 namespace IceCreamShopServiceDAL.ViewModels
 {
     [DataContract]
-    public class IceCreamViewModel
+    public class IceCreamViewModel : BaseViewModel
     {
         [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        [DisplayName("Название мороженого")]
+        [Column(title: "Название мороженого", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string IceCreamName { get; set; }
         [DataMember]
-        [DisplayName("Цена")]
+        [Column(title: "Цена", width: 100)]
         public decimal Price { get; set; }
         [DataMember]
         public Dictionary<int, (string, int)> IceCreamIngredients { get; set; }
+        public override List<string> Properties() => new List<string> {
+            "Id", "IceCreamName", "Price" };
     }
 }
